@@ -1,16 +1,39 @@
-FROM node:18.12.1-alpine
+FROM node:18.20.4-alpine3.20
 
-RUN mkdir -p /usr/src/app
 
-WORKDIR /usr/src/app
+RUN apk update
 
-COPY . .
+RUN apk add nginx
+
+RUN apk add supervisor
+
+
+RUN rm -f /etc/nginx/http.d/default.conf
+
+ADD ./docker/nginx/default.conf /etc/nginx/http.d/default.conf
+
+
+COPY ./docker/supervisord.conf /etc/supervisor/supervisord.conf
+
+COPY ./docker/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+
+
+RUN mkdir -p /home/www/node/node_modules && chown -R node:node /home/www/node
+
+RUN mkdir -p /var/log/supervisor && chown -R node:node /var/log/supervisor
+
+
+WORKDIR /home/www/node
+
+COPY package*.json ./
 
 RUN npm install
-RUN mkdir /.npm && \
-    chown -R 1000:0 /.npm && \
-    chmod -R g=u /.npm
 
-EXPOSE 4000
+RUN npm ci --only=production
 
-CMD ["npm", "run", "start"]
+COPY --chown=node:node . ./
+
+EXPOSE 3000
+
+
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]
