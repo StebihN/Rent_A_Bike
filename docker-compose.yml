@@ -1,0 +1,183 @@
+version: '3'
+
+services:
+  bikes-service:
+    container_name: bikes-service
+    image: bikes-service:latest
+    depends_on:
+      - bikes-db
+    ports:
+      - "9000:9000"
+    environment:
+      PSQL_URI: "jdbc:postgresql://bikes-db:5432/bikes"
+    networks:
+      - bikes  
+
+  stations-service:
+    container_name: stations-service
+    image: stations-service:latest
+    depends_on:
+      - mongo-db
+    ports:
+      - "8080:8080"
+    environment:
+      MONGO_URI: "mongodb://mongo-db:27017"
+    networks:
+      - bikes
+
+  rentals-service:
+    container_name: rentals-service
+    image: rentals-service:latest
+    depends_on:
+      - mongo-db
+    ports:
+      - "8081:8081"
+    environment:
+      MONGO_URI: "mongodb://mongo-db:27017"
+    networks:
+      - bikes
+
+  users-service:
+    container_name: users-service
+    image: users-service:latest
+    depends_on:
+      - users-db
+    ports:
+      - "3001:3001"
+    environment:
+      MYSQL_HOST: "users-db"
+      MYSQL_USER: "root"
+      MYSQL_PASS: "root"
+      MYSQL_DB: "users"
+      MYSQL_PORT: "3306"
+    networks:
+      - bikes
+
+  gateway:
+    container_name: gateway
+    image: gateway:latest
+    depends_on:
+      - bikes-service
+      - rentals-service
+      - users-service
+      - stations-service
+    ports:
+      - "3000:3000"
+    environment:
+      USERS_URI: "http://users-service:3001/users"
+      STATIONS_URI: "http://stations-service:8080/stations"
+      BIKES_URI: "bikes-service:9000"
+      RENTALS_URI: "http://rentals-service:8081/rentals"
+    networks:
+      - bikes
+
+  users-db:
+    container_name: users-db
+    image: users-db:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'users'
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - '3307:3306'
+    expose:
+      - '3307'
+    networks:
+      - bikes
+    volumes:
+      - my-db:/var/lib/mysql
+
+  mongo-db:
+    container_name: mongo-db
+    image: mongo:7.0.16
+    ports:
+      - '27017:27017'
+    networks:
+      - bikes
+    volumes:
+      - dbdata6:/data/db
+
+  bikes-db:
+    container_name: bikes-db
+    image: bikes-db:latest
+    restart: always
+    ports:
+      - '5455:5432'
+    environment:
+      POSTGRES_DB: "bikes"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "root"
+    networks:
+      - bikes
+    volumes:
+      - pgdata:/var/lib/postgresql/data   
+  
+  host-front:
+    container_name: 'host-front'
+    image: host-front:latest
+    depends_on:
+      - "users-front"
+      - "stations-front"
+      - "bikes-front"
+      - "gateway"
+    ports:
+      - "2000:80"
+    environment:
+      PUBLIC_PATH: "http://host-front:2000"
+      USERS_URI: "http://users-front:2003"
+      BIKES_URI: "http://bikes-front:2002"
+      STATIONS_URI: "http://stations-front:2001"
+    networks:
+      - bikes
+
+  users-front:
+    container_name: 'users-front'
+    image: users-front:latest
+    depends_on:
+      - "gateway"
+    ports:
+      - "2003:80"
+    environment:
+      PUBLIC_PATH: "http://users-host:2003"
+      HOST_URI: "http://front-host:2000"
+      GATEWAY_URI: "http://gateway:3000"
+    networks:
+      - bikes
+  
+  stations-front:
+    container_name: 'stations-front'
+    image: stations-front:latest
+    depends_on:
+      - "gateway"
+    ports:
+      - "2001:80"
+    environment:
+      PUBLIC_PATH: "http://stations-front:2001"
+      HOST_URI: "http://front-host:2000"
+      GATEWAY_URI: "http://gateway:3000"
+    networks:
+      - bikes
+
+  bikes-front:
+    container_name: 'bikes-front'
+    image: bikes-front:latest
+    depends_on:
+      - "gateway"
+    ports:
+      - "2002:80"
+    environment:
+      PUBLIC_PATH: "http://bikes-front:2002"
+      HOST_URI: "http://front-host:2000"
+      GATEWAY_URI: "http://gateway:3000"
+    networks:
+      - bikes
+
+volumes:
+  my-db:
+  dbdata6:
+  pgdata:
+
+networks:
+  bikes:
+    name: bikes
+    driver: bridge
