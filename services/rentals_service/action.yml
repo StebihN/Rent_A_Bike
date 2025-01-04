@@ -1,0 +1,20 @@
+name: CI
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v3
+
+    - name: set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'adopt'
+
+    - name: test 
+      working-directory: services/rentals_service
+      shell: bash
+      run: mvn -B test
+        
+    - name: package
+      shell: bash
+      run: mvn -B package --file ./services/rentals_service/pom.xml
