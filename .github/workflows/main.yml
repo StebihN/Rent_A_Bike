@@ -1,0 +1,19 @@
+name: Test and Package
+on: [push]
+jobs:
+    stations:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: StebihN/Rent_A_Bike/services/stations_service@main
+    rentals:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: StebihN/Rent_A_Bike/services/rentals_service@main
+    users:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: StebihN/Rent_A_Bike/services/users_service@main
+    bikes:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: StebihN/Rent_A_Bike/services/bikes_service@main
