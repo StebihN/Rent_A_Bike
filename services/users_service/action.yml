@@ -11,5 +11,5 @@ runs:
       
     - name: test
       shell: bash
-      working-directory: microservices/users_service
+      working-directory: services/users_service
       run: npm test
