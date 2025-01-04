@@ -33,7 +33,7 @@ RUN npm ci --only=production
 
 COPY --chown=node:node . ./
 
-EXPOSE 3000
+EXPOSE 3001
 
 
 CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisor/supervisord.conf"]

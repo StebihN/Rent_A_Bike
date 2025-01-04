@@ -28,9 +28,9 @@ Each user has the following properties:
   GET /users/get/:id
 ```
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of user to fetch |
+| Parameter | Type  | Description                       |
+| :-------- | :---- | :-------------------------------- |
+| `id`      | `int` | **Required**. Id of user to fetch |
 
 #### User Log In
 
@@ -62,13 +62,34 @@ Each user has the following properties:
   PUT /users/update/:id
 ```
 
-| Parameter  | Type     | Description                            |
-| :--------- | :------- | :------------------------------------- |
-| `id`       | `string` | **Required**. Id of the user to update |
-| `name`     | `string` | **Required**. name of the user         |
-| `surname`  | `string` | **Required**. surname of the user      |
-| `email`    | `string` | **Required**. email of the user        |
-| `password` | `string` | **Required**. password of the user     |
+| Parameter | Type     | Description                            |
+| :-------- | :------- | :------------------------------------- |
+| `id`      | `int`    | **Required**. Id of the user to update |
+| `name`    | `string` | **Required**. name of the user         |
+| `surname` | `string` | **Required**. surname of the user      |
+| `email`   | `string` | **Required**. email of the user        |
+
+#### Update Password
+
+```http
+  PUT /users/update/password/:id
+```
+
+| Parameter     | Type     | Description                            |
+| :------------ | :------- | :------------------------------------- |
+| `id`          | `int`    | **Required**. Id of the user to update |
+| `oldPassword` | `string` | **Required**. old password             |
+| `newPassword` | `string` | **Required**. newPassword              |
+
+#### Update Users rent count
+
+```http
+  PUT /users/update/rent/:id
+```
+
+| Parameter | Type  | Description                       |
+| :-------- | :---- | :-------------------------------- |
+| `id`      | `int` | **Required**. Id of the user to update |
 
 #### Delete user
 
@@ -78,7 +99,7 @@ Each user has the following properties:
 
 | Parameter | Type     | Description                            |
 | :-------- | :------- | :------------------------------------- |
-| `id`      | `string` | **Required**. Id of the user to update |
+| `id`      | `string` | **Required**. Id of the user to delete |
 
 #### Delete all users
 
@@ -86,6 +107,4 @@ Each user has the following properties:
   DELETE /users/delete/
 ```
 
-| Parameter | Type | Description |
-| :-------- | :--- | :---------- |
 

@@ -1,6 +1,8 @@
 const User = require("../models/users.model")
 const UserDTOResponse = require("../dto/users.dto_response")
 const UserDTORequest = require("../dto/users.dto_request")
+const UserDTORequestUpdate = require("../dto/users.dto_request_update")
+const UserDTORequestUpdatePassword = require("../dto/users.dto_request_update_password")
 
 
 exports.getAll = (req, res) => {
@@ -45,11 +47,10 @@ exports.create = (req, res) => {
         email: req.body.email,
         password: req.body.password,
     });
-    
+
     User.create(userRequest, (err, newUser) => {
         if (err) {
             if (err.kind === "duplicate_entry") {
-                console.log("here")
                 res.status(412).send({
                     message: `User with email: ${userRequest.email} already exists.`
                 });
@@ -65,13 +66,29 @@ exports.create = (req, res) => {
         };
     })
 }
-
+exports.updateRent = (req, res) => {
+    User.updateRent(req.params.id, (err, data) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `User with id ${req.params.id} not found.`
+                });
+            }
+            else {
+                res.status(500).send({
+                    message: "Error updating rent count for user with id " + req.params.id
+                });
+            }
+        }else{
+            res.status(204).send()
+        }
+    })
+}
 exports.updateById = (req, res) => {
-    const userRequest = new UserDTORequest({
+    const userRequest = new UserDTORequestUpdate({
         name: req.body.name,
         surname: req.body.surname,
         email: req.body.email,
-        password: req.body.password,
     });
 
     User.updateById(req.params.id, userRequest, (err, updatedUser) => {
@@ -80,14 +97,49 @@ exports.updateById = (req, res) => {
                 res.status(404).send({
                     message: `User with id ${req.params.id} not found.`
                 });
-            } else {
+
+            }
+            else if (err.kind === "duplicate_entry") {
+                res.status(412).send({
+                    message: `User with email: ${userRequest.email} already exists.`
+                });
+            }
+            else {
                 res.status(500).send({
                     message: "Error updating user with id " + req.params.id
                 });
             }
         } else {
-            const userDTO = new UserDTOResponse(updatedUser)
-            res.status(204).send(userDTO)
+            res.status(204).send(updatedUser)
+        };
+    })
+}
+
+exports.updatePasswordById = (req, res) => {
+    const userRequest = new UserDTORequestUpdatePassword({
+        oldPassword: req.body.oldPassword,
+        newPassword: req.body.newPassword
+    })
+
+    User.updatePasswordById(req.params.id, userRequest, (err, updatedUser) => {
+        if (err) {
+            if (err.kind === "not_found") {
+                res.status(404).send({
+                    message: `User with id ${req.params.id} not found.`
+                });
+            }
+            else if (err.kind === "wrong_password") {
+                res.status(401).send({
+                    message: `wrong password.`
+                });
+            }
+            else {
+                res.status(500).send({
+                    message: "Error updating user with id " + req.params.id
+                });
+            }
+        } else {
+            res.status(204).send()
         };
     })
 }
@@ -148,3 +200,4 @@ exports.auth = (req, res) => {
         }
     })
 }
+

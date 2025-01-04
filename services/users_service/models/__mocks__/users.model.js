@@ -63,15 +63,43 @@ class User {
         callback(null, newUser)
     }
 
+    static updateRent(id, callback) {
+        const result = data.find((user) => user.id == id)
+        if (result) {
+            callback(null, null)
+            return
+        }
+
+        callback({ kind: "not_found" }, null)
+    }
+
     static updateById(id, user, callback) {
         const result = data.find((user) => user.id == id)
         if (result) {
-            const user = new User(result)
-            callback(null, user)
+            if (result.email == user.email) {
+                callback({ kind: "duplicate_entry" }, null)
+                return
+            }
+            const newUser = new User({...result, name: user.name, surname: user.surname, email: user.email})
+            callback(null, newUser)
             return
         }
 
         callback({ kind: "not_found" }, null);
+    }
+
+    static updatePasswordById(id, user, callback) {
+        const result = data.find((user) => user.id == id)
+        if (result) {
+            if (user.oldPassword == result.password) {
+                const newUser = new User(result)
+                callback(null, { id: id, ...newUser })
+            } else {
+                callback({ kind: "wrong_password" }, null)
+            }
+        } else {
+            callback({ kind: "not_found" }, null)
+        }
     }
 
     static deleteAll(callback) {
@@ -98,7 +126,7 @@ class User {
                 const user = new User(result)
                 callback(null, user)
                 return
-            } else{
+            } else {
                 callback({ kind: "wrong_password" }, null)
                 return
             }

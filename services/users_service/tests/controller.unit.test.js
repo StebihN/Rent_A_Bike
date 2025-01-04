@@ -213,14 +213,68 @@ describe('Test Create', () => {
     });
 });
 
+describe('Test updateRent', () => {
+    it('should return a response', () => {
+        const req = {
+            params: {
+                id: 1
+            }
+        }
+        const res = {
+            send: jest.fn(),
+            status: jest.fn().mockReturnThis()
+        }
+
+        controller.updateRent(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(204)
+    })
+
+    it('should return a not found response', () => {
+        const req = {
+            params: {
+                id: 5
+            }
+        };
+        const res = {
+            send: jest.fn(),
+            status: jest.fn().mockReturnThis()
+        }
+
+        controller.updateRent(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(404)
+    })
+
+    it('should return an error response', () => {
+        const req = {
+            params: {
+                id: 5
+            }
+        };
+
+        const res = {
+            send: jest.fn(),
+            status: jest.fn().mockReturnThis()
+        }
+
+        jest.spyOn(User, "updateRent").mockImplementationOnce((id, callback) => {
+            callback({ kind: "mock" }, null)
+        })
+
+        controller.updateRent(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(500)
+    })
+})
+
 describe('Test UpdateById', () => {
     it('should  return a response', () => {
         const req = {
             body: {
                 name: "John",
                 surname: "Doe",
-                email: "john.doe@example.com",
-                password: "password123"
+                email: "john.doe12@example.com",
             },
             params: {
                 id: 1
@@ -239,7 +293,7 @@ describe('Test UpdateById', () => {
                 id: 1,
                 name: "John",
                 surname: "Doe",
-                email: "john.doe@example.com",
+                email: "john.doe12@example.com",
                 bikesRented: 3
             })
         )
@@ -266,6 +320,28 @@ describe('Test UpdateById', () => {
 
         expect(res.status).toHaveBeenCalledWith(404)
     });
+
+    it('should return a duplicate entry response', () => {
+        const req = {
+            body: {
+                name: "John",
+                surname: "Doe",
+                email: "john.doe@example.com",
+                password: "password123"
+            },
+            params: {
+                id: 1
+            }
+        };
+        const res = {
+            send: jest.fn(),
+            status: jest.fn().mockReturnThis()
+        }
+
+        controller.updateById(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(412)
+    })
 
     it('should return an error response ', () => {
         const req = {
@@ -295,6 +371,86 @@ describe('Test UpdateById', () => {
     });
 });
 
+describe('Test UpdatePasswordById', () => {
+    it('returns a response', () => {
+        const req = {
+            body: {
+                oldPassword: "password123"
+            },
+            params: {
+                id: 1
+            }
+        };
+        const res = {
+            send: jest.fn(),
+            status: jest.fn().mockReturnThis()
+        }
+
+        controller.updatePasswordById(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(204)
+    })
+
+    it('returns a not found response', () => {
+        const req = {
+            body: {
+                oldPassword: "password123"
+            },
+            params: {
+                id: 5
+            }
+        };
+        const res = {
+            send: jest.fn(),
+            status: jest.fn().mockReturnThis()
+        }
+        controller.updatePasswordById(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(404)
+    })
+
+    it('returns a wrong password response', () => { 
+        const req = {
+            body: {
+                oldPassword: "password1234"
+            },
+            params: {
+                id: 1
+            }
+        };
+        const res = {
+            send: jest.fn(),
+            status: jest.fn().mockReturnThis()
+        }
+
+        controller.updatePasswordById(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(401)
+    })
+
+    it('returns an error response', () => {
+        const req = {
+            body: {
+                oldPassword: "password123"
+            },
+            params: {
+                id: 1
+            }
+        };
+        const res = {
+            send: jest.fn(),
+            status: jest.fn().mockReturnThis()
+        }
+
+        jest.spyOn(User, "updatePasswordById").mockImplementationOnce((id, user, callback) => {
+            callback({ kind: "mock" }, null)
+        })
+
+        controller.updatePasswordById(req, res)
+
+        expect(res.status).toHaveBeenCalledWith(500)
+    })
+})
 
 describe('Test Delete All', () => {
     it('should return a response ', () => {

@@ -1,0 +1,15 @@
+name: Node.js CI
+runs:
+  using: "composite"
+
+  steps:
+    - uses: actions/checkout@v3
+    - name: install
+      shell: bash
+      working-directory: services/users_service
+      run: npm ci
+      
+    - name: test
+      shell: bash
+      working-directory: microservices/users_service
+      run: npm test
