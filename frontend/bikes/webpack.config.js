@@ -7,9 +7,11 @@ const deps = require("./package.json").dependencies;
 
 const printCompilationMessage = require('./compilation.config.js');
 
+require('dotenv').config()
+
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:2001/",
+    publicPath: process.env.PUBLIC_PATH + "/",
   },
 
   resolve: {
@@ -64,8 +66,16 @@ module.exports = (_, argv) => ({
     new ModuleFederationPlugin({
       name: "bikes",
       filename: "remoteEntry.js",
-      remotes: {},
-      exposes: {},
+      remotes: {
+        host: `host@${process.env.HOST_URI}/remoteEntry.js`
+      },
+      exposes: {
+        "./UserViewPage" : "./src/pages/UserViewPage.jsx",
+        "./ViewPage" : "./src/pages/ViewPage.jsx",
+        "./CreatePage" : "./src/pages/CreatePage.jsx",
+        "./UpdatePage" : "./src/pages/UpdatePage.jsx",
+        "./ReturnPage" : "./src/pages/ReturnPage.jsx",
+      },
       shared: {
         ...deps,
         react: {
@@ -79,7 +89,7 @@ module.exports = (_, argv) => ({
       },
     }),
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
+      template: "./public/index.html",
     }),
     new Dotenv()
   ],
