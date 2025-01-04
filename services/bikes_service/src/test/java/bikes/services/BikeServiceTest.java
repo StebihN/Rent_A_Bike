@@ -4,7 +4,6 @@ import bikes.entities.BikeEntity;
 
 import bikes.grpc.Bike;
 import bikes.grpc.BikeRequest;
-import bikes.mappings.BikeMapper;
 import bikes.repositories.BikeRepository;
 
 import java.util.List;
@@ -31,10 +30,8 @@ class BikeServiceTest {
     @Inject
     BikeService bikeService;
 
-    @Inject
-    BikeMapper bikeMapper;
     @InjectMock
-    private BikeRepository bikeRepository;
+    private  BikeRepository bikeRepository;
 
 
     @BeforeEach
