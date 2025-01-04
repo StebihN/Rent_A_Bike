@@ -119,21 +119,6 @@ public final class BikesGrpc {
         return getCreateMethod;
     }
 
-    private static volatile io.grpc.MethodDescriptor<bikes.grpc.BikeUpdateRatingRequest, bikes.grpc.Bike> getUpdateRatingByIdMethod;
-
-    @io.grpc.stub.annotations.RpcMethod(fullMethodName = SERVICE_NAME + '/' + "UpdateRatingById", requestType = bikes.grpc.BikeUpdateRatingRequest.class, responseType = bikes.grpc.Bike.class, methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
-    public static io.grpc.MethodDescriptor<bikes.grpc.BikeUpdateRatingRequest, bikes.grpc.Bike> getUpdateRatingByIdMethod() {
-        io.grpc.MethodDescriptor<bikes.grpc.BikeUpdateRatingRequest, bikes.grpc.Bike> getUpdateRatingByIdMethod;
-        if ((getUpdateRatingByIdMethod = BikesGrpc.getUpdateRatingByIdMethod) == null) {
-            synchronized (BikesGrpc.class) {
-                if ((getUpdateRatingByIdMethod = BikesGrpc.getUpdateRatingByIdMethod) == null) {
-                    BikesGrpc.getUpdateRatingByIdMethod = getUpdateRatingByIdMethod = io.grpc.MethodDescriptor.<bikes.grpc.BikeUpdateRatingRequest, bikes.grpc.Bike>newBuilder().setType(io.grpc.MethodDescriptor.MethodType.UNARY).setFullMethodName(generateFullMethodName(SERVICE_NAME, "UpdateRatingById")).setSampledToLocalTracing(true).setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(bikes.grpc.BikeUpdateRatingRequest.getDefaultInstance())).setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(bikes.grpc.Bike.getDefaultInstance())).setSchemaDescriptor(new BikesMethodDescriptorSupplier("UpdateRatingById")).build();
-                }
-            }
-        }
-        return getUpdateRatingByIdMethod;
-    }
-
     private static volatile io.grpc.MethodDescriptor<com.google.protobuf.Int32Value, com.google.protobuf.Empty> getDeleteByIdMethod;
 
     @io.grpc.stub.annotations.RpcMethod(fullMethodName = SERVICE_NAME + '/' + "DeleteById", requestType = com.google.protobuf.Int32Value.class, responseType = com.google.protobuf.Empty.class, methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
@@ -269,12 +254,6 @@ public final class BikesGrpc {
 
         /**
          */
-        default void updateRatingById(bikes.grpc.BikeUpdateRatingRequest request, io.grpc.stub.StreamObserver<bikes.grpc.Bike> responseObserver) {
-            io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getUpdateRatingByIdMethod(), responseObserver);
-        }
-
-        /**
-         */
         default void deleteById(com.google.protobuf.Int32Value request, io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
             io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getDeleteByIdMethod(), responseObserver);
         }
@@ -361,12 +340,6 @@ public final class BikesGrpc {
 
         /**
          */
-        public void updateRatingById(bikes.grpc.BikeUpdateRatingRequest request, io.grpc.stub.StreamObserver<bikes.grpc.Bike> responseObserver) {
-            io.grpc.stub.ClientCalls.asyncUnaryCall(getChannel().newCall(getUpdateRatingByIdMethod(), getCallOptions()), request, responseObserver);
-        }
-
-        /**
-         */
         public void deleteById(com.google.protobuf.Int32Value request, io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
             io.grpc.stub.ClientCalls.asyncUnaryCall(getChannel().newCall(getDeleteByIdMethod(), getCallOptions()), request, responseObserver);
         }
@@ -442,12 +415,6 @@ public final class BikesGrpc {
 
         /**
          */
-        public bikes.grpc.Bike updateRatingById(bikes.grpc.BikeUpdateRatingRequest request) {
-            return io.grpc.stub.ClientCalls.blockingUnaryCall(getChannel(), getUpdateRatingByIdMethod(), getCallOptions(), request);
-        }
-
-        /**
-         */
         public com.google.protobuf.Empty deleteById(com.google.protobuf.Int32Value request) {
             return io.grpc.stub.ClientCalls.blockingUnaryCall(getChannel(), getDeleteByIdMethod(), getCallOptions(), request);
         }
@@ -511,12 +478,6 @@ public final class BikesGrpc {
 
         /**
          */
-        public com.google.common.util.concurrent.ListenableFuture<bikes.grpc.Bike> updateRatingById(bikes.grpc.BikeUpdateRatingRequest request) {
-            return io.grpc.stub.ClientCalls.futureUnaryCall(getChannel().newCall(getUpdateRatingByIdMethod(), getCallOptions()), request);
-        }
-
-        /**
-         */
         public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> deleteById(com.google.protobuf.Int32Value request) {
             return io.grpc.stub.ClientCalls.futureUnaryCall(getChannel().newCall(getDeleteByIdMethod(), getCallOptions()), request);
         }
@@ -548,13 +509,11 @@ public final class BikesGrpc {
 
     private static final int METHODID_CREATE = 6;
 
-    private static final int METHODID_UPDATE_RATING_BY_ID = 7;
+    private static final int METHODID_DELETE_BY_ID = 7;
 
-    private static final int METHODID_DELETE_BY_ID = 8;
+    private static final int METHODID_DELETE_ALL = 8;
 
-    private static final int METHODID_DELETE_ALL = 9;
-
-    private static final int METHODID_DELETE_BY_LOCATION = 10;
+    private static final int METHODID_DELETE_BY_LOCATION = 9;
 
     private static final class MethodHandlers<Req, Resp> implements io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>, io.grpc.stub.ServerCalls.ServerStreamingMethod<Req, Resp>, io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>, io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
 
@@ -592,9 +551,6 @@ public final class BikesGrpc {
                 case METHODID_CREATE:
                     serviceImpl.create((bikes.grpc.BikeRequest) request, (io.grpc.stub.StreamObserver<bikes.grpc.Bike>) responseObserver);
                     break;
-                case METHODID_UPDATE_RATING_BY_ID:
-                    serviceImpl.updateRatingById((bikes.grpc.BikeUpdateRatingRequest) request, (io.grpc.stub.StreamObserver<bikes.grpc.Bike>) responseObserver);
-                    break;
                 case METHODID_DELETE_BY_ID:
                     serviceImpl.deleteById((com.google.protobuf.Int32Value) request, (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
                     break;
@@ -620,7 +576,7 @@ public final class BikesGrpc {
     }
 
     public static io.grpc.ServerServiceDefinition bindService(AsyncService service) {
-        return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor()).addMethod(getGetAllStreamMethod(), io.grpc.stub.ServerCalls.asyncServerStreamingCall(new MethodHandlers<com.google.protobuf.Empty, bikes.grpc.Bike>(service, METHODID_GET_ALL_STREAM))).addMethod(getGetAllMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<com.google.protobuf.Empty, bikes.grpc.BikeList>(service, METHODID_GET_ALL))).addMethod(getGetByLocationStreamMethod(), io.grpc.stub.ServerCalls.asyncServerStreamingCall(new MethodHandlers<com.google.protobuf.StringValue, bikes.grpc.Bike>(service, METHODID_GET_BY_LOCATION_STREAM))).addMethod(getGetByLocationMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<com.google.protobuf.StringValue, bikes.grpc.BikeList>(service, METHODID_GET_BY_LOCATION))).addMethod(getGetByIdMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<com.google.protobuf.Int32Value, bikes.grpc.Bike>(service, METHODID_GET_BY_ID))).addMethod(getUpdateByIdMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<bikes.grpc.BikeRequest, bikes.grpc.Bike>(service, METHODID_UPDATE_BY_ID))).addMethod(getCreateMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<bikes.grpc.BikeRequest, bikes.grpc.Bike>(service, METHODID_CREATE))).addMethod(getUpdateRatingByIdMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<bikes.grpc.BikeUpdateRatingRequest, bikes.grpc.Bike>(service, METHODID_UPDATE_RATING_BY_ID))).addMethod(getDeleteByIdMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<com.google.protobuf.Int32Value, com.google.protobuf.Empty>(service, METHODID_DELETE_BY_ID))).addMethod(getDeleteAllMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<com.google.protobuf.Empty, com.google.protobuf.Empty>(service, METHODID_DELETE_ALL))).addMethod(getDeleteByLocationMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<com.google.protobuf.StringValue, com.google.protobuf.Empty>(service, METHODID_DELETE_BY_LOCATION))).build();
+        return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor()).addMethod(getGetAllStreamMethod(), io.grpc.stub.ServerCalls.asyncServerStreamingCall(new MethodHandlers<com.google.protobuf.Empty, bikes.grpc.Bike>(service, METHODID_GET_ALL_STREAM))).addMethod(getGetAllMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<com.google.protobuf.Empty, bikes.grpc.BikeList>(service, METHODID_GET_ALL))).addMethod(getGetByLocationStreamMethod(), io.grpc.stub.ServerCalls.asyncServerStreamingCall(new MethodHandlers<com.google.protobuf.StringValue, bikes.grpc.Bike>(service, METHODID_GET_BY_LOCATION_STREAM))).addMethod(getGetByLocationMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<com.google.protobuf.StringValue, bikes.grpc.BikeList>(service, METHODID_GET_BY_LOCATION))).addMethod(getGetByIdMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<com.google.protobuf.Int32Value, bikes.grpc.Bike>(service, METHODID_GET_BY_ID))).addMethod(getUpdateByIdMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<bikes.grpc.BikeRequest, bikes.grpc.Bike>(service, METHODID_UPDATE_BY_ID))).addMethod(getCreateMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<bikes.grpc.BikeRequest, bikes.grpc.Bike>(service, METHODID_CREATE))).addMethod(getDeleteByIdMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<com.google.protobuf.Int32Value, com.google.protobuf.Empty>(service, METHODID_DELETE_BY_ID))).addMethod(getDeleteAllMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<com.google.protobuf.Empty, com.google.protobuf.Empty>(service, METHODID_DELETE_ALL))).addMethod(getDeleteByLocationMethod(), io.grpc.stub.ServerCalls.asyncUnaryCall(new MethodHandlers<com.google.protobuf.StringValue, com.google.protobuf.Empty>(service, METHODID_DELETE_BY_LOCATION))).build();
     }
 
     private static abstract class BikesBaseDescriptorSupplier implements io.grpc.protobuf.ProtoFileDescriptorSupplier, io.grpc.protobuf.ProtoServiceDescriptorSupplier {
@@ -667,7 +623,7 @@ public final class BikesGrpc {
             synchronized (BikesGrpc.class) {
                 result = serviceDescriptor;
                 if (result == null) {
-                    serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME).setSchemaDescriptor(new BikesFileDescriptorSupplier()).addMethod(getGetAllStreamMethod()).addMethod(getGetAllMethod()).addMethod(getGetByLocationStreamMethod()).addMethod(getGetByLocationMethod()).addMethod(getGetByIdMethod()).addMethod(getUpdateByIdMethod()).addMethod(getCreateMethod()).addMethod(getUpdateRatingByIdMethod()).addMethod(getDeleteByIdMethod()).addMethod(getDeleteAllMethod()).addMethod(getDeleteByLocationMethod()).build();
+                    serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME).setSchemaDescriptor(new BikesFileDescriptorSupplier()).addMethod(getGetAllStreamMethod()).addMethod(getGetAllMethod()).addMethod(getGetByLocationStreamMethod()).addMethod(getGetByLocationMethod()).addMethod(getGetByIdMethod()).addMethod(getUpdateByIdMethod()).addMethod(getCreateMethod()).addMethod(getDeleteByIdMethod()).addMethod(getDeleteAllMethod()).addMethod(getDeleteByLocationMethod()).build();
                 }
             }
         }

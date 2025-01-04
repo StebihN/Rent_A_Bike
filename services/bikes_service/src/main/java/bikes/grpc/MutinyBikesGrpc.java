@@ -55,10 +55,6 @@ public final class MutinyBikesGrpc implements io.quarkus.grpc.MutinyGrpc {
             return io.quarkus.grpc.stubs.ClientCalls.oneToOne(request, delegateStub::create);
         }
 
-        public io.smallrye.mutiny.Uni<bikes.grpc.Bike> updateRatingById(bikes.grpc.BikeUpdateRatingRequest request) {
-            return io.quarkus.grpc.stubs.ClientCalls.oneToOne(request, delegateStub::updateRatingById);
-        }
-
         public io.smallrye.mutiny.Uni<com.google.protobuf.Empty> deleteById(com.google.protobuf.Int32Value request) {
             return io.quarkus.grpc.stubs.ClientCalls.oneToOne(request, delegateStub::deleteById);
         }
@@ -114,10 +110,6 @@ public final class MutinyBikesGrpc implements io.quarkus.grpc.MutinyGrpc {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
         }
 
-        public io.smallrye.mutiny.Uni<bikes.grpc.Bike> updateRatingById(bikes.grpc.BikeUpdateRatingRequest request) {
-            throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
-        }
-
         public io.smallrye.mutiny.Uni<com.google.protobuf.Empty> deleteById(com.google.protobuf.Int32Value request) {
             throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
         }
@@ -140,7 +132,7 @@ public final class MutinyBikesGrpc implements io.quarkus.grpc.MutinyGrpc {
 
         @java.lang.Override
         public io.grpc.ServerServiceDefinition bindService() {
-            return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor()).addMethod(bikes.grpc.BikesGrpc.getGetAllStreamMethod(), asyncServerStreamingCall(new MethodHandlers<com.google.protobuf.Empty, bikes.grpc.Bike>(this, METHODID_GET_ALL_STREAM, compression))).addMethod(bikes.grpc.BikesGrpc.getGetAllMethod(), asyncUnaryCall(new MethodHandlers<com.google.protobuf.Empty, bikes.grpc.BikeList>(this, METHODID_GET_ALL, compression))).addMethod(bikes.grpc.BikesGrpc.getGetByLocationStreamMethod(), asyncServerStreamingCall(new MethodHandlers<com.google.protobuf.StringValue, bikes.grpc.Bike>(this, METHODID_GET_BY_LOCATION_STREAM, compression))).addMethod(bikes.grpc.BikesGrpc.getGetByLocationMethod(), asyncUnaryCall(new MethodHandlers<com.google.protobuf.StringValue, bikes.grpc.BikeList>(this, METHODID_GET_BY_LOCATION, compression))).addMethod(bikes.grpc.BikesGrpc.getGetByIdMethod(), asyncUnaryCall(new MethodHandlers<com.google.protobuf.Int32Value, bikes.grpc.Bike>(this, METHODID_GET_BY_ID, compression))).addMethod(bikes.grpc.BikesGrpc.getUpdateByIdMethod(), asyncUnaryCall(new MethodHandlers<bikes.grpc.BikeRequest, bikes.grpc.Bike>(this, METHODID_UPDATE_BY_ID, compression))).addMethod(bikes.grpc.BikesGrpc.getCreateMethod(), asyncUnaryCall(new MethodHandlers<bikes.grpc.BikeRequest, bikes.grpc.Bike>(this, METHODID_CREATE, compression))).addMethod(bikes.grpc.BikesGrpc.getUpdateRatingByIdMethod(), asyncUnaryCall(new MethodHandlers<bikes.grpc.BikeUpdateRatingRequest, bikes.grpc.Bike>(this, METHODID_UPDATE_RATING_BY_ID, compression))).addMethod(bikes.grpc.BikesGrpc.getDeleteByIdMethod(), asyncUnaryCall(new MethodHandlers<com.google.protobuf.Int32Value, com.google.protobuf.Empty>(this, METHODID_DELETE_BY_ID, compression))).addMethod(bikes.grpc.BikesGrpc.getDeleteAllMethod(), asyncUnaryCall(new MethodHandlers<com.google.protobuf.Empty, com.google.protobuf.Empty>(this, METHODID_DELETE_ALL, compression))).addMethod(bikes.grpc.BikesGrpc.getDeleteByLocationMethod(), asyncUnaryCall(new MethodHandlers<com.google.protobuf.StringValue, com.google.protobuf.Empty>(this, METHODID_DELETE_BY_LOCATION, compression))).build();
+            return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor()).addMethod(bikes.grpc.BikesGrpc.getGetAllStreamMethod(), asyncServerStreamingCall(new MethodHandlers<com.google.protobuf.Empty, bikes.grpc.Bike>(this, METHODID_GET_ALL_STREAM, compression))).addMethod(bikes.grpc.BikesGrpc.getGetAllMethod(), asyncUnaryCall(new MethodHandlers<com.google.protobuf.Empty, bikes.grpc.BikeList>(this, METHODID_GET_ALL, compression))).addMethod(bikes.grpc.BikesGrpc.getGetByLocationStreamMethod(), asyncServerStreamingCall(new MethodHandlers<com.google.protobuf.StringValue, bikes.grpc.Bike>(this, METHODID_GET_BY_LOCATION_STREAM, compression))).addMethod(bikes.grpc.BikesGrpc.getGetByLocationMethod(), asyncUnaryCall(new MethodHandlers<com.google.protobuf.StringValue, bikes.grpc.BikeList>(this, METHODID_GET_BY_LOCATION, compression))).addMethod(bikes.grpc.BikesGrpc.getGetByIdMethod(), asyncUnaryCall(new MethodHandlers<com.google.protobuf.Int32Value, bikes.grpc.Bike>(this, METHODID_GET_BY_ID, compression))).addMethod(bikes.grpc.BikesGrpc.getUpdateByIdMethod(), asyncUnaryCall(new MethodHandlers<bikes.grpc.BikeRequest, bikes.grpc.Bike>(this, METHODID_UPDATE_BY_ID, compression))).addMethod(bikes.grpc.BikesGrpc.getCreateMethod(), asyncUnaryCall(new MethodHandlers<bikes.grpc.BikeRequest, bikes.grpc.Bike>(this, METHODID_CREATE, compression))).addMethod(bikes.grpc.BikesGrpc.getDeleteByIdMethod(), asyncUnaryCall(new MethodHandlers<com.google.protobuf.Int32Value, com.google.protobuf.Empty>(this, METHODID_DELETE_BY_ID, compression))).addMethod(bikes.grpc.BikesGrpc.getDeleteAllMethod(), asyncUnaryCall(new MethodHandlers<com.google.protobuf.Empty, com.google.protobuf.Empty>(this, METHODID_DELETE_ALL, compression))).addMethod(bikes.grpc.BikesGrpc.getDeleteByLocationMethod(), asyncUnaryCall(new MethodHandlers<com.google.protobuf.StringValue, com.google.protobuf.Empty>(this, METHODID_DELETE_BY_LOCATION, compression))).build();
         }
     }
 
@@ -158,13 +150,11 @@ public final class MutinyBikesGrpc implements io.quarkus.grpc.MutinyGrpc {
 
     private static final int METHODID_CREATE = 6;
 
-    private static final int METHODID_UPDATE_RATING_BY_ID = 7;
+    private static final int METHODID_DELETE_BY_ID = 7;
 
-    private static final int METHODID_DELETE_BY_ID = 8;
+    private static final int METHODID_DELETE_ALL = 8;
 
-    private static final int METHODID_DELETE_ALL = 9;
-
-    private static final int METHODID_DELETE_BY_LOCATION = 10;
+    private static final int METHODID_DELETE_BY_LOCATION = 9;
 
     private static final class MethodHandlers<Req, Resp> implements io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>, io.grpc.stub.ServerCalls.ServerStreamingMethod<Req, Resp>, io.grpc.stub.ServerCalls.ClientStreamingMethod<Req, Resp>, io.grpc.stub.ServerCalls.BidiStreamingMethod<Req, Resp> {
 
@@ -204,9 +194,6 @@ public final class MutinyBikesGrpc implements io.quarkus.grpc.MutinyGrpc {
                     break;
                 case METHODID_CREATE:
                     io.quarkus.grpc.stubs.ServerCalls.oneToOne((bikes.grpc.BikeRequest) request, (io.grpc.stub.StreamObserver<bikes.grpc.Bike>) responseObserver, compression, serviceImpl::create);
-                    break;
-                case METHODID_UPDATE_RATING_BY_ID:
-                    io.quarkus.grpc.stubs.ServerCalls.oneToOne((bikes.grpc.BikeUpdateRatingRequest) request, (io.grpc.stub.StreamObserver<bikes.grpc.Bike>) responseObserver, compression, serviceImpl::updateRatingById);
                     break;
                 case METHODID_DELETE_BY_ID:
                     io.quarkus.grpc.stubs.ServerCalls.oneToOne((com.google.protobuf.Int32Value) request, (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver, compression, serviceImpl::deleteById);

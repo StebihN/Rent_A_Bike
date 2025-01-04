@@ -13,50 +13,38 @@ com.google.protobuf.MessageOrBuilder {
     int getId();
 
     /**
-     * <code>string locationId = 2;</code>
-     * @return The locationId.
+     * <code>string stationId = 2;</code>
+     * @return The stationId.
      */
-    java.lang.String getLocationId();
+    java.lang.String getStationId();
 
     /**
-     * <code>string locationId = 2;</code>
-     * @return The bytes for locationId.
+     * <code>string stationId = 2;</code>
+     * @return The bytes for stationId.
      */
-    com.google.protobuf.ByteString getLocationIdBytes();
+    com.google.protobuf.ByteString getStationIdBytes();
 
     /**
-     * <code>string name = 3;</code>
-     * @return The name.
-     */
-    java.lang.String getName();
-
-    /**
-     * <code>string name = 3;</code>
-     * @return The bytes for name.
-     */
-    com.google.protobuf.ByteString getNameBytes();
-
-    /**
-     * <code>double rating = 4;</code>
+     * <code>double rating = 3;</code>
      * @return The rating.
      */
     double getRating();
 
     /**
-     * <code>int32 ratingCount = 5;</code>
-     * @return The ratingCount.
+     * <code>int32 timesRated = 4;</code>
+     * @return The timesRated.
      */
-    int getRatingCount();
+    int getTimesRated();
 
     /**
-     * <code>double timeTravelled = 6;</code>
-     * @return The timeTravelled.
+     * <code>int32 timesRented = 5;</code>
+     * @return The timesRented.
      */
-    double getTimeTravelled();
+    int getTimesRented();
 
     /**
-     * <code>int32 rentCount = 7;</code>
-     * @return The rentCount.
+     * <code>int64 totalTimeRented = 6;</code>
+     * @return The totalTimeRented.
      */
-    int getRentCount();
+    long getTotalTimeRented();
 }

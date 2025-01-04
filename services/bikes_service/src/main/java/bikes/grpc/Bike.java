@@ -17,8 +17,7 @@ BikeOrBuilder {
     }
 
     private Bike() {
-        locationId_ = "";
-        name_ = "";
+        stationId_ = "";
     }
 
     @java.lang.Override
@@ -49,88 +48,50 @@ BikeOrBuilder {
         return id_;
     }
 
-    public static final int LOCATIONID_FIELD_NUMBER = 2;
+    public static final int STATIONID_FIELD_NUMBER = 2;
 
     @SuppressWarnings("serial")
-    private volatile java.lang.Object locationId_ = "";
+    private volatile java.lang.Object stationId_ = "";
 
     /**
-     * <code>string locationId = 2;</code>
-     * @return The locationId.
+     * <code>string stationId = 2;</code>
+     * @return The stationId.
      */
     @java.lang.Override
-    public java.lang.String getLocationId() {
-        java.lang.Object ref = locationId_;
+    public java.lang.String getStationId() {
+        java.lang.Object ref = stationId_;
         if (ref instanceof java.lang.String) {
             return (java.lang.String) ref;
         } else {
             com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
             java.lang.String s = bs.toStringUtf8();
-            locationId_ = s;
+            stationId_ = s;
             return s;
         }
     }
 
     /**
-     * <code>string locationId = 2;</code>
-     * @return The bytes for locationId.
+     * <code>string stationId = 2;</code>
+     * @return The bytes for stationId.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString getLocationIdBytes() {
-        java.lang.Object ref = locationId_;
+    public com.google.protobuf.ByteString getStationIdBytes() {
+        java.lang.Object ref = stationId_;
         if (ref instanceof java.lang.String) {
             com.google.protobuf.ByteString b = com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
-            locationId_ = b;
+            stationId_ = b;
             return b;
         } else {
             return (com.google.protobuf.ByteString) ref;
         }
     }
 
-    public static final int NAME_FIELD_NUMBER = 3;
-
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object name_ = "";
-
-    /**
-     * <code>string name = 3;</code>
-     * @return The name.
-     */
-    @java.lang.Override
-    public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (ref instanceof java.lang.String) {
-            return (java.lang.String) ref;
-        } else {
-            com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            name_ = s;
-            return s;
-        }
-    }
-
-    /**
-     * <code>string name = 3;</code>
-     * @return The bytes for name.
-     */
-    @java.lang.Override
-    public com.google.protobuf.ByteString getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof java.lang.String) {
-            com.google.protobuf.ByteString b = com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
-            name_ = b;
-            return b;
-        } else {
-            return (com.google.protobuf.ByteString) ref;
-        }
-    }
-
-    public static final int RATING_FIELD_NUMBER = 4;
+    public static final int RATING_FIELD_NUMBER = 3;
 
     private double rating_ = 0D;
 
     /**
-     * <code>double rating = 4;</code>
+     * <code>double rating = 3;</code>
      * @return The rating.
      */
     @java.lang.Override
@@ -138,43 +99,43 @@ BikeOrBuilder {
         return rating_;
     }
 
-    public static final int RATINGCOUNT_FIELD_NUMBER = 5;
+    public static final int TIMESRATED_FIELD_NUMBER = 4;
 
-    private int ratingCount_ = 0;
+    private int timesRated_ = 0;
 
     /**
-     * <code>int32 ratingCount = 5;</code>
-     * @return The ratingCount.
+     * <code>int32 timesRated = 4;</code>
+     * @return The timesRated.
      */
     @java.lang.Override
-    public int getRatingCount() {
-        return ratingCount_;
+    public int getTimesRated() {
+        return timesRated_;
     }
 
-    public static final int TIMETRAVELLED_FIELD_NUMBER = 6;
+    public static final int TIMESRENTED_FIELD_NUMBER = 5;
 
-    private double timeTravelled_ = 0D;
+    private int timesRented_ = 0;
 
     /**
-     * <code>double timeTravelled = 6;</code>
-     * @return The timeTravelled.
+     * <code>int32 timesRented = 5;</code>
+     * @return The timesRented.
      */
     @java.lang.Override
-    public double getTimeTravelled() {
-        return timeTravelled_;
+    public int getTimesRented() {
+        return timesRented_;
     }
 
-    public static final int RENTCOUNT_FIELD_NUMBER = 7;
+    public static final int TOTALTIMERENTED_FIELD_NUMBER = 6;
 
-    private int rentCount_ = 0;
+    private long totalTimeRented_ = 0L;
 
     /**
-     * <code>int32 rentCount = 7;</code>
-     * @return The rentCount.
+     * <code>int64 totalTimeRented = 6;</code>
+     * @return The totalTimeRented.
      */
     @java.lang.Override
-    public int getRentCount() {
-        return rentCount_;
+    public long getTotalTimeRented() {
+        return totalTimeRented_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -195,23 +156,20 @@ BikeOrBuilder {
         if (id_ != 0) {
             output.writeInt32(1, id_);
         }
-        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(locationId_)) {
-            com.google.protobuf.GeneratedMessageV3.writeString(output, 2, locationId_);
-        }
-        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
-            com.google.protobuf.GeneratedMessageV3.writeString(output, 3, name_);
+        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(stationId_)) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 2, stationId_);
         }
         if (java.lang.Double.doubleToRawLongBits(rating_) != 0) {
-            output.writeDouble(4, rating_);
+            output.writeDouble(3, rating_);
         }
-        if (ratingCount_ != 0) {
-            output.writeInt32(5, ratingCount_);
+        if (timesRated_ != 0) {
+            output.writeInt32(4, timesRated_);
         }
-        if (java.lang.Double.doubleToRawLongBits(timeTravelled_) != 0) {
-            output.writeDouble(6, timeTravelled_);
+        if (timesRented_ != 0) {
+            output.writeInt32(5, timesRented_);
         }
-        if (rentCount_ != 0) {
-            output.writeInt32(7, rentCount_);
+        if (totalTimeRented_ != 0L) {
+            output.writeInt64(6, totalTimeRented_);
         }
         getUnknownFields().writeTo(output);
     }
@@ -225,23 +183,20 @@ BikeOrBuilder {
         if (id_ != 0) {
             size += com.google.protobuf.CodedOutputStream.computeInt32Size(1, id_);
         }
-        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(locationId_)) {
-            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, locationId_);
-        }
-        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
-            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, name_);
+        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(stationId_)) {
+            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, stationId_);
         }
         if (java.lang.Double.doubleToRawLongBits(rating_) != 0) {
-            size += com.google.protobuf.CodedOutputStream.computeDoubleSize(4, rating_);
+            size += com.google.protobuf.CodedOutputStream.computeDoubleSize(3, rating_);
         }
-        if (ratingCount_ != 0) {
-            size += com.google.protobuf.CodedOutputStream.computeInt32Size(5, ratingCount_);
+        if (timesRated_ != 0) {
+            size += com.google.protobuf.CodedOutputStream.computeInt32Size(4, timesRated_);
         }
-        if (java.lang.Double.doubleToRawLongBits(timeTravelled_) != 0) {
-            size += com.google.protobuf.CodedOutputStream.computeDoubleSize(6, timeTravelled_);
+        if (timesRented_ != 0) {
+            size += com.google.protobuf.CodedOutputStream.computeInt32Size(5, timesRented_);
         }
-        if (rentCount_ != 0) {
-            size += com.google.protobuf.CodedOutputStream.computeInt32Size(7, rentCount_);
+        if (totalTimeRented_ != 0L) {
+            size += com.google.protobuf.CodedOutputStream.computeInt64Size(6, totalTimeRented_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSize = size;
@@ -259,17 +214,15 @@ BikeOrBuilder {
         bikes.grpc.Bike other = (bikes.grpc.Bike) obj;
         if (getId() != other.getId())
             return false;
-        if (!getLocationId().equals(other.getLocationId()))
-            return false;
-        if (!getName().equals(other.getName()))
+        if (!getStationId().equals(other.getStationId()))
             return false;
         if (java.lang.Double.doubleToLongBits(getRating()) != java.lang.Double.doubleToLongBits(other.getRating()))
             return false;
-        if (getRatingCount() != other.getRatingCount())
+        if (getTimesRated() != other.getTimesRated())
             return false;
-        if (java.lang.Double.doubleToLongBits(getTimeTravelled()) != java.lang.Double.doubleToLongBits(other.getTimeTravelled()))
+        if (getTimesRented() != other.getTimesRented())
             return false;
-        if (getRentCount() != other.getRentCount())
+        if (getTotalTimeRented() != other.getTotalTimeRented())
             return false;
         if (!getUnknownFields().equals(other.getUnknownFields()))
             return false;
@@ -285,18 +238,16 @@ BikeOrBuilder {
         hash = (19 * hash) + getDescriptor().hashCode();
         hash = (37 * hash) + ID_FIELD_NUMBER;
         hash = (53 * hash) + getId();
-        hash = (37 * hash) + LOCATIONID_FIELD_NUMBER;
-        hash = (53 * hash) + getLocationId().hashCode();
-        hash = (37 * hash) + NAME_FIELD_NUMBER;
-        hash = (53 * hash) + getName().hashCode();
+        hash = (37 * hash) + STATIONID_FIELD_NUMBER;
+        hash = (53 * hash) + getStationId().hashCode();
         hash = (37 * hash) + RATING_FIELD_NUMBER;
         hash = (53 * hash) + com.google.protobuf.Internal.hashLong(java.lang.Double.doubleToLongBits(getRating()));
-        hash = (37 * hash) + RATINGCOUNT_FIELD_NUMBER;
-        hash = (53 * hash) + getRatingCount();
-        hash = (37 * hash) + TIMETRAVELLED_FIELD_NUMBER;
-        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(java.lang.Double.doubleToLongBits(getTimeTravelled()));
-        hash = (37 * hash) + RENTCOUNT_FIELD_NUMBER;
-        hash = (53 * hash) + getRentCount();
+        hash = (37 * hash) + TIMESRATED_FIELD_NUMBER;
+        hash = (53 * hash) + getTimesRated();
+        hash = (37 * hash) + TIMESRENTED_FIELD_NUMBER;
+        hash = (53 * hash) + getTimesRented();
+        hash = (37 * hash) + TOTALTIMERENTED_FIELD_NUMBER;
+        hash = (53 * hash) + com.google.protobuf.Internal.hashLong(getTotalTimeRented());
         hash = (29 * hash) + getUnknownFields().hashCode();
         memoizedHashCode = hash;
         return hash;
@@ -402,12 +353,11 @@ BikeOrBuilder {
             super.clear();
             bitField0_ = 0;
             id_ = 0;
-            locationId_ = "";
-            name_ = "";
+            stationId_ = "";
             rating_ = 0D;
-            ratingCount_ = 0;
-            timeTravelled_ = 0D;
-            rentCount_ = 0;
+            timesRated_ = 0;
+            timesRented_ = 0;
+            totalTimeRented_ = 0L;
             return this;
         }
 
@@ -446,22 +396,19 @@ BikeOrBuilder {
                 result.id_ = id_;
             }
             if (((from_bitField0_ & 0x00000002) != 0)) {
-                result.locationId_ = locationId_;
+                result.stationId_ = stationId_;
             }
             if (((from_bitField0_ & 0x00000004) != 0)) {
-                result.name_ = name_;
-            }
-            if (((from_bitField0_ & 0x00000008) != 0)) {
                 result.rating_ = rating_;
             }
+            if (((from_bitField0_ & 0x00000008) != 0)) {
+                result.timesRated_ = timesRated_;
+            }
             if (((from_bitField0_ & 0x00000010) != 0)) {
-                result.ratingCount_ = ratingCount_;
+                result.timesRented_ = timesRented_;
             }
             if (((from_bitField0_ & 0x00000020) != 0)) {
-                result.timeTravelled_ = timeTravelled_;
-            }
-            if (((from_bitField0_ & 0x00000040) != 0)) {
-                result.rentCount_ = rentCount_;
+                result.totalTimeRented_ = totalTimeRented_;
             }
         }
 
@@ -511,27 +458,22 @@ BikeOrBuilder {
             if (other.getId() != 0) {
                 setId(other.getId());
             }
-            if (!other.getLocationId().isEmpty()) {
-                locationId_ = other.locationId_;
+            if (!other.getStationId().isEmpty()) {
+                stationId_ = other.stationId_;
                 bitField0_ |= 0x00000002;
-                onChanged();
-            }
-            if (!other.getName().isEmpty()) {
-                name_ = other.name_;
-                bitField0_ |= 0x00000004;
                 onChanged();
             }
             if (other.getRating() != 0D) {
                 setRating(other.getRating());
             }
-            if (other.getRatingCount() != 0) {
-                setRatingCount(other.getRatingCount());
+            if (other.getTimesRated() != 0) {
+                setTimesRated(other.getTimesRated());
             }
-            if (other.getTimeTravelled() != 0D) {
-                setTimeTravelled(other.getTimeTravelled());
+            if (other.getTimesRented() != 0) {
+                setTimesRented(other.getTimesRented());
             }
-            if (other.getRentCount() != 0) {
-                setRentCount(other.getRentCount());
+            if (other.getTotalTimeRented() != 0L) {
+                setTotalTimeRented(other.getTotalTimeRented());
             }
             this.mergeUnknownFields(other.getUnknownFields());
             onChanged();
@@ -565,46 +507,39 @@ BikeOrBuilder {
                         // case 8
                         case 18:
                             {
-                                locationId_ = input.readStringRequireUtf8();
+                                stationId_ = input.readStringRequireUtf8();
                                 bitField0_ |= 0x00000002;
                                 break;
                             }
                         // case 18
-                        case 26:
+                        case 25:
                             {
-                                name_ = input.readStringRequireUtf8();
+                                rating_ = input.readDouble();
                                 bitField0_ |= 0x00000004;
                                 break;
                             }
-                        // case 26
-                        case 33:
+                        // case 25
+                        case 32:
                             {
-                                rating_ = input.readDouble();
+                                timesRated_ = input.readInt32();
                                 bitField0_ |= 0x00000008;
                                 break;
                             }
-                        // case 33
+                        // case 32
                         case 40:
                             {
-                                ratingCount_ = input.readInt32();
+                                timesRented_ = input.readInt32();
                                 bitField0_ |= 0x00000010;
                                 break;
                             }
                         // case 40
-                        case 49:
+                        case 48:
                             {
-                                timeTravelled_ = input.readDouble();
+                                totalTimeRented_ = input.readInt64();
                                 bitField0_ |= 0x00000020;
                                 break;
                             }
-                        // case 49
-                        case 56:
-                            {
-                                rentCount_ = input.readInt32();
-                                bitField0_ |= 0x00000040;
-                                break;
-                            }
-                        // case 56
+                        // case 48
                         default:
                             {
                                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
@@ -662,18 +597,18 @@ BikeOrBuilder {
             return this;
         }
 
-        private java.lang.Object locationId_ = "";
+        private java.lang.Object stationId_ = "";
 
         /**
-         * <code>string locationId = 2;</code>
-         * @return The locationId.
+         * <code>string stationId = 2;</code>
+         * @return The stationId.
          */
-        public java.lang.String getLocationId() {
-            java.lang.Object ref = locationId_;
+        public java.lang.String getStationId() {
+            java.lang.Object ref = stationId_;
             if (!(ref instanceof java.lang.String)) {
                 com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
                 java.lang.String s = bs.toStringUtf8();
-                locationId_ = s;
+                stationId_ = s;
                 return s;
             } else {
                 return (java.lang.String) ref;
@@ -681,14 +616,14 @@ BikeOrBuilder {
         }
 
         /**
-         * <code>string locationId = 2;</code>
-         * @return The bytes for locationId.
+         * <code>string stationId = 2;</code>
+         * @return The bytes for stationId.
          */
-        public com.google.protobuf.ByteString getLocationIdBytes() {
-            java.lang.Object ref = locationId_;
+        public com.google.protobuf.ByteString getStationIdBytes() {
+            java.lang.Object ref = stationId_;
             if (ref instanceof String) {
                 com.google.protobuf.ByteString b = com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
-                locationId_ = b;
+                stationId_ = b;
                 return b;
             } else {
                 return (com.google.protobuf.ByteString) ref;
@@ -696,118 +631,43 @@ BikeOrBuilder {
         }
 
         /**
-         * <code>string locationId = 2;</code>
-         * @param value The locationId to set.
+         * <code>string stationId = 2;</code>
+         * @param value The stationId to set.
          * @return This builder for chaining.
          */
-        public Builder setLocationId(java.lang.String value) {
+        public Builder setStationId(java.lang.String value) {
             if (value == null) {
                 throw new NullPointerException();
             }
-            locationId_ = value;
+            stationId_ = value;
             bitField0_ |= 0x00000002;
             onChanged();
             return this;
         }
 
         /**
-         * <code>string locationId = 2;</code>
+         * <code>string stationId = 2;</code>
          * @return This builder for chaining.
          */
-        public Builder clearLocationId() {
-            locationId_ = getDefaultInstance().getLocationId();
+        public Builder clearStationId() {
+            stationId_ = getDefaultInstance().getStationId();
             bitField0_ = (bitField0_ & ~0x00000002);
             onChanged();
             return this;
         }
 
         /**
-         * <code>string locationId = 2;</code>
-         * @param value The bytes for locationId to set.
+         * <code>string stationId = 2;</code>
+         * @param value The bytes for stationId to set.
          * @return This builder for chaining.
          */
-        public Builder setLocationIdBytes(com.google.protobuf.ByteString value) {
+        public Builder setStationIdBytes(com.google.protobuf.ByteString value) {
             if (value == null) {
                 throw new NullPointerException();
             }
             checkByteStringIsUtf8(value);
-            locationId_ = value;
+            stationId_ = value;
             bitField0_ |= 0x00000002;
-            onChanged();
-            return this;
-        }
-
-        private java.lang.Object name_ = "";
-
-        /**
-         * <code>string name = 3;</code>
-         * @return The name.
-         */
-        public java.lang.String getName() {
-            java.lang.Object ref = name_;
-            if (!(ref instanceof java.lang.String)) {
-                com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
-                java.lang.String s = bs.toStringUtf8();
-                name_ = s;
-                return s;
-            } else {
-                return (java.lang.String) ref;
-            }
-        }
-
-        /**
-         * <code>string name = 3;</code>
-         * @return The bytes for name.
-         */
-        public com.google.protobuf.ByteString getNameBytes() {
-            java.lang.Object ref = name_;
-            if (ref instanceof String) {
-                com.google.protobuf.ByteString b = com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
-                name_ = b;
-                return b;
-            } else {
-                return (com.google.protobuf.ByteString) ref;
-            }
-        }
-
-        /**
-         * <code>string name = 3;</code>
-         * @param value The name to set.
-         * @return This builder for chaining.
-         */
-        public Builder setName(java.lang.String value) {
-            if (value == null) {
-                throw new NullPointerException();
-            }
-            name_ = value;
-            bitField0_ |= 0x00000004;
-            onChanged();
-            return this;
-        }
-
-        /**
-         * <code>string name = 3;</code>
-         * @return This builder for chaining.
-         */
-        public Builder clearName() {
-            name_ = getDefaultInstance().getName();
-            bitField0_ = (bitField0_ & ~0x00000004);
-            onChanged();
-            return this;
-        }
-
-        /**
-         * <code>string name = 3;</code>
-         * @param value The bytes for name to set.
-         * @return This builder for chaining.
-         */
-        public Builder setNameBytes(com.google.protobuf.ByteString value) {
-            if (value == null) {
-                throw new NullPointerException();
-            }
-            checkByteStringIsUtf8(value);
-            name_ = value;
-            bitField0_ |= 0x00000004;
             onChanged();
             return this;
         }
@@ -815,7 +675,7 @@ BikeOrBuilder {
         private double rating_;
 
         /**
-         * <code>double rating = 4;</code>
+         * <code>double rating = 3;</code>
          * @return The rating.
          */
         @java.lang.Override
@@ -824,126 +684,126 @@ BikeOrBuilder {
         }
 
         /**
-         * <code>double rating = 4;</code>
+         * <code>double rating = 3;</code>
          * @param value The rating to set.
          * @return This builder for chaining.
          */
         public Builder setRating(double value) {
             rating_ = value;
+            bitField0_ |= 0x00000004;
+            onChanged();
+            return this;
+        }
+
+        /**
+         * <code>double rating = 3;</code>
+         * @return This builder for chaining.
+         */
+        public Builder clearRating() {
+            bitField0_ = (bitField0_ & ~0x00000004);
+            rating_ = 0D;
+            onChanged();
+            return this;
+        }
+
+        private int timesRated_;
+
+        /**
+         * <code>int32 timesRated = 4;</code>
+         * @return The timesRated.
+         */
+        @java.lang.Override
+        public int getTimesRated() {
+            return timesRated_;
+        }
+
+        /**
+         * <code>int32 timesRated = 4;</code>
+         * @param value The timesRated to set.
+         * @return This builder for chaining.
+         */
+        public Builder setTimesRated(int value) {
+            timesRated_ = value;
             bitField0_ |= 0x00000008;
             onChanged();
             return this;
         }
 
         /**
-         * <code>double rating = 4;</code>
+         * <code>int32 timesRated = 4;</code>
          * @return This builder for chaining.
          */
-        public Builder clearRating() {
+        public Builder clearTimesRated() {
             bitField0_ = (bitField0_ & ~0x00000008);
-            rating_ = 0D;
+            timesRated_ = 0;
             onChanged();
             return this;
         }
 
-        private int ratingCount_;
+        private int timesRented_;
 
         /**
-         * <code>int32 ratingCount = 5;</code>
-         * @return The ratingCount.
+         * <code>int32 timesRented = 5;</code>
+         * @return The timesRented.
          */
         @java.lang.Override
-        public int getRatingCount() {
-            return ratingCount_;
+        public int getTimesRented() {
+            return timesRented_;
         }
 
         /**
-         * <code>int32 ratingCount = 5;</code>
-         * @param value The ratingCount to set.
+         * <code>int32 timesRented = 5;</code>
+         * @param value The timesRented to set.
          * @return This builder for chaining.
          */
-        public Builder setRatingCount(int value) {
-            ratingCount_ = value;
+        public Builder setTimesRented(int value) {
+            timesRented_ = value;
             bitField0_ |= 0x00000010;
             onChanged();
             return this;
         }
 
         /**
-         * <code>int32 ratingCount = 5;</code>
+         * <code>int32 timesRented = 5;</code>
          * @return This builder for chaining.
          */
-        public Builder clearRatingCount() {
+        public Builder clearTimesRented() {
             bitField0_ = (bitField0_ & ~0x00000010);
-            ratingCount_ = 0;
+            timesRented_ = 0;
             onChanged();
             return this;
         }
 
-        private double timeTravelled_;
+        private long totalTimeRented_;
 
         /**
-         * <code>double timeTravelled = 6;</code>
-         * @return The timeTravelled.
+         * <code>int64 totalTimeRented = 6;</code>
+         * @return The totalTimeRented.
          */
         @java.lang.Override
-        public double getTimeTravelled() {
-            return timeTravelled_;
+        public long getTotalTimeRented() {
+            return totalTimeRented_;
         }
 
         /**
-         * <code>double timeTravelled = 6;</code>
-         * @param value The timeTravelled to set.
+         * <code>int64 totalTimeRented = 6;</code>
+         * @param value The totalTimeRented to set.
          * @return This builder for chaining.
          */
-        public Builder setTimeTravelled(double value) {
-            timeTravelled_ = value;
+        public Builder setTotalTimeRented(long value) {
+            totalTimeRented_ = value;
             bitField0_ |= 0x00000020;
             onChanged();
             return this;
         }
 
         /**
-         * <code>double timeTravelled = 6;</code>
+         * <code>int64 totalTimeRented = 6;</code>
          * @return This builder for chaining.
          */
-        public Builder clearTimeTravelled() {
+        public Builder clearTotalTimeRented() {
             bitField0_ = (bitField0_ & ~0x00000020);
-            timeTravelled_ = 0D;
-            onChanged();
-            return this;
-        }
-
-        private int rentCount_;
-
-        /**
-         * <code>int32 rentCount = 7;</code>
-         * @return The rentCount.
-         */
-        @java.lang.Override
-        public int getRentCount() {
-            return rentCount_;
-        }
-
-        /**
-         * <code>int32 rentCount = 7;</code>
-         * @param value The rentCount to set.
-         * @return This builder for chaining.
-         */
-        public Builder setRentCount(int value) {
-            rentCount_ = value;
-            bitField0_ |= 0x00000040;
-            onChanged();
-            return this;
-        }
-
-        /**
-         * <code>int32 rentCount = 7;</code>
-         * @return This builder for chaining.
-         */
-        public Builder clearRentCount() {
-            bitField0_ = (bitField0_ & ~0x00000040);
-            rentCount_ = 0;
+            totalTimeRented_ = 0L;
             onChanged();
             return this;
         }

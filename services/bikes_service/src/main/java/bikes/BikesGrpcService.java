@@ -46,7 +46,7 @@ public class BikesGrpcService implements Bikes {
     @Blocking
     public Uni<Bike> getById(Int32Value request) {
         log.info("getting bike with id " + request.getValue());
-        return  Uni.createFrom().item(bikeService.getById(request)).onItem().ifNull().switchTo(
+        return Uni.createFrom().item(bikeService.getById(request)).onItem().ifNull().switchTo(
                 Uni.createFrom().failure(new StatusRuntimeException(
                         Status.NOT_FOUND.withDescription("Bike with id " + request.getValue() + " not found"))));
     }
@@ -63,16 +63,6 @@ public class BikesGrpcService implements Bikes {
 
     }
 
-    @Override
-    @Blocking
-    public Uni<Bike> updateRatingById(BikeUpdateRatingRequest request) {
-        log.info("updating bike rating for bike with id " + request.getId());
-        Bike bike = bikeService.updateRating(request);
-        return Uni.createFrom().item(bike).onItem().ifNull().switchTo(
-                Uni.createFrom().failure(new StatusRuntimeException(
-                        Status.NOT_FOUND.withDescription("Bike with id " + request.getId() + " not found"))));
-
-    }
 
     @Override
     @Blocking
@@ -102,11 +92,7 @@ public class BikesGrpcService implements Bikes {
     @Blocking
     public Uni<Empty> deleteById(Int32Value request) {
         log.info("deleting bike with id " + request.getValue());
-        Long affectedRows = bikeService.deleteById(request);
-        if(affectedRows == 0){
-            throw new StatusRuntimeException(
-                    Status.NOT_FOUND.withDescription("Bike with id " + request.getValue() + " not found"));
-        }
+        bikeService.deleteById(request);
         return Uni.createFrom().item(Empty.newBuilder().build());
     }
 
@@ -123,5 +109,4 @@ public class BikesGrpcService implements Bikes {
         log.info("streaming all bikes at location " + request.getValue());
         return Multi.createFrom().items(bikeService.getByLocationStream(request));
     }
-
 }

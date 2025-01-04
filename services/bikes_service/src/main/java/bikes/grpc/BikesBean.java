@@ -59,15 +59,6 @@ public class BikesBean extends MutinyBikesGrpc.BikesImplBase implements Bindable
     }
 
     @Override
-    public io.smallrye.mutiny.Uni<bikes.grpc.Bike> updateRatingById(bikes.grpc.BikeUpdateRatingRequest request) {
-        try {
-            return delegate.updateRatingById(request);
-        } catch (UnsupportedOperationException e) {
-            throw new io.grpc.StatusRuntimeException(io.grpc.Status.UNIMPLEMENTED);
-        }
-    }
-
-    @Override
     public io.smallrye.mutiny.Uni<com.google.protobuf.Empty> deleteById(com.google.protobuf.Int32Value request) {
         try {
             return delegate.deleteById(request);

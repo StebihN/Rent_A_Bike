@@ -17,8 +17,7 @@ BikeRequestOrBuilder {
     }
 
     private BikeRequest() {
-        locationId_ = "";
-        name_ = "";
+        stationId_ = "";
     }
 
     @java.lang.Override
@@ -36,6 +35,8 @@ BikeRequestOrBuilder {
         return bikes.grpc.BikesOuterClass.internal_static_BikeRequest_fieldAccessorTable.ensureFieldAccessorsInitialized(bikes.grpc.BikeRequest.class, bikes.grpc.BikeRequest.Builder.class);
     }
 
+    private int bitField0_;
+
     public static final int ID_FIELD_NUMBER = 1;
 
     private int id_ = 0;
@@ -49,80 +50,86 @@ BikeRequestOrBuilder {
         return id_;
     }
 
-    public static final int LOCATIONID_FIELD_NUMBER = 2;
+    public static final int STATIONID_FIELD_NUMBER = 2;
 
     @SuppressWarnings("serial")
-    private volatile java.lang.Object locationId_ = "";
+    private volatile java.lang.Object stationId_ = "";
 
     /**
-     * <code>string locationId = 2;</code>
-     * @return The locationId.
+     * <code>string stationId = 2;</code>
+     * @return The stationId.
      */
     @java.lang.Override
-    public java.lang.String getLocationId() {
-        java.lang.Object ref = locationId_;
+    public java.lang.String getStationId() {
+        java.lang.Object ref = stationId_;
         if (ref instanceof java.lang.String) {
             return (java.lang.String) ref;
         } else {
             com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
             java.lang.String s = bs.toStringUtf8();
-            locationId_ = s;
+            stationId_ = s;
             return s;
         }
     }
 
     /**
-     * <code>string locationId = 2;</code>
-     * @return The bytes for locationId.
+     * <code>string stationId = 2;</code>
+     * @return The bytes for stationId.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString getLocationIdBytes() {
-        java.lang.Object ref = locationId_;
+    public com.google.protobuf.ByteString getStationIdBytes() {
+        java.lang.Object ref = stationId_;
         if (ref instanceof java.lang.String) {
             com.google.protobuf.ByteString b = com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
-            locationId_ = b;
+            stationId_ = b;
             return b;
         } else {
             return (com.google.protobuf.ByteString) ref;
         }
     }
 
-    public static final int NAME_FIELD_NUMBER = 3;
+    public static final int RATING_FIELD_NUMBER = 3;
 
-    @SuppressWarnings("serial")
-    private volatile java.lang.Object name_ = "";
+    private double rating_ = 0D;
 
     /**
-     * <code>string name = 3;</code>
-     * @return The name.
+     * <code>optional double rating = 3;</code>
+     * @return Whether the rating field is set.
      */
     @java.lang.Override
-    public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (ref instanceof java.lang.String) {
-            return (java.lang.String) ref;
-        } else {
-            com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            name_ = s;
-            return s;
-        }
+    public boolean hasRating() {
+        return ((bitField0_ & 0x00000001) != 0);
     }
 
     /**
-     * <code>string name = 3;</code>
-     * @return The bytes for name.
+     * <code>optional double rating = 3;</code>
+     * @return The rating.
      */
     @java.lang.Override
-    public com.google.protobuf.ByteString getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof java.lang.String) {
-            com.google.protobuf.ByteString b = com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
-            name_ = b;
-            return b;
-        } else {
-            return (com.google.protobuf.ByteString) ref;
-        }
+    public double getRating() {
+        return rating_;
+    }
+
+    public static final int TOTALTIMERENTED_FIELD_NUMBER = 4;
+
+    private long totalTimeRented_ = 0L;
+
+    /**
+     * <code>optional int64 totalTimeRented = 4;</code>
+     * @return Whether the totalTimeRented field is set.
+     */
+    @java.lang.Override
+    public boolean hasTotalTimeRented() {
+        return ((bitField0_ & 0x00000002) != 0);
+    }
+
+    /**
+     * <code>optional int64 totalTimeRented = 4;</code>
+     * @return The totalTimeRented.
+     */
+    @java.lang.Override
+    public long getTotalTimeRented() {
+        return totalTimeRented_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -143,11 +150,14 @@ BikeRequestOrBuilder {
         if (id_ != 0) {
             output.writeInt32(1, id_);
         }
-        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(locationId_)) {
-            com.google.protobuf.GeneratedMessageV3.writeString(output, 2, locationId_);
+        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(stationId_)) {
+            com.google.protobuf.GeneratedMessageV3.writeString(output, 2, stationId_);
         }
-        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
-            com.google.protobuf.GeneratedMessageV3.writeString(output, 3, name_);
+        if (((bitField0_ & 0x00000001) != 0)) {
+            output.writeDouble(3, rating_);
+        }
+        if (((bitField0_ & 0x00000002) != 0)) {
+            output.writeInt64(4, totalTimeRented_);
         }
         getUnknownFields().writeTo(output);
     }
@@ -161,11 +171,14 @@ BikeRequestOrBuilder {
         if (id_ != 0) {
             size += com.google.protobuf.CodedOutputStream.computeInt32Size(1, id_);
         }
-        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(locationId_)) {
-            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, locationId_);
+        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(stationId_)) {
+            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, stationId_);
         }
-        if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(name_)) {
-            size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, name_);
+        if (((bitField0_ & 0x00000001) != 0)) {
+            size += com.google.protobuf.CodedOutputStream.computeDoubleSize(3, rating_);
+        }
+        if (((bitField0_ & 0x00000002) != 0)) {
+            size += com.google.protobuf.CodedOutputStream.computeInt64Size(4, totalTimeRented_);
         }
         size += getUnknownFields().getSerializedSize();
         memoizedSize = size;
@@ -183,10 +196,20 @@ BikeRequestOrBuilder {
         bikes.grpc.BikeRequest other = (bikes.grpc.BikeRequest) obj;
         if (getId() != other.getId())
             return false;
-        if (!getLocationId().equals(other.getLocationId()))
+        if (!getStationId().equals(other.getStationId()))
             return false;
-        if (!getName().equals(other.getName()))
+        if (hasRating() != other.hasRating())
             return false;
+        if (hasRating()) {
+            if (java.lang.Double.doubleToLongBits(getRating()) != java.lang.Double.doubleToLongBits(other.getRating()))
+                return false;
+        }
+        if (hasTotalTimeRented() != other.hasTotalTimeRented())
+            return false;
+        if (hasTotalTimeRented()) {
+            if (getTotalTimeRented() != other.getTotalTimeRented())
+                return false;
+        }
         if (!getUnknownFields().equals(other.getUnknownFields()))
             return false;
         return true;
@@ -201,10 +224,16 @@ BikeRequestOrBuilder {
         hash = (19 * hash) + getDescriptor().hashCode();
         hash = (37 * hash) + ID_FIELD_NUMBER;
         hash = (53 * hash) + getId();
-        hash = (37 * hash) + LOCATIONID_FIELD_NUMBER;
-        hash = (53 * hash) + getLocationId().hashCode();
-        hash = (37 * hash) + NAME_FIELD_NUMBER;
-        hash = (53 * hash) + getName().hashCode();
+        hash = (37 * hash) + STATIONID_FIELD_NUMBER;
+        hash = (53 * hash) + getStationId().hashCode();
+        if (hasRating()) {
+            hash = (37 * hash) + RATING_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(java.lang.Double.doubleToLongBits(getRating()));
+        }
+        if (hasTotalTimeRented()) {
+            hash = (37 * hash) + TOTALTIMERENTED_FIELD_NUMBER;
+            hash = (53 * hash) + com.google.protobuf.Internal.hashLong(getTotalTimeRented());
+        }
         hash = (29 * hash) + getUnknownFields().hashCode();
         memoizedHashCode = hash;
         return hash;
@@ -310,8 +339,9 @@ BikeRequestOrBuilder {
             super.clear();
             bitField0_ = 0;
             id_ = 0;
-            locationId_ = "";
-            name_ = "";
+            stationId_ = "";
+            rating_ = 0D;
+            totalTimeRented_ = 0L;
             return this;
         }
 
@@ -350,11 +380,18 @@ BikeRequestOrBuilder {
                 result.id_ = id_;
             }
             if (((from_bitField0_ & 0x00000002) != 0)) {
-                result.locationId_ = locationId_;
+                result.stationId_ = stationId_;
             }
+            int to_bitField0_ = 0;
             if (((from_bitField0_ & 0x00000004) != 0)) {
-                result.name_ = name_;
+                result.rating_ = rating_;
+                to_bitField0_ |= 0x00000001;
             }
+            if (((from_bitField0_ & 0x00000008) != 0)) {
+                result.totalTimeRented_ = totalTimeRented_;
+                to_bitField0_ |= 0x00000002;
+            }
+            result.bitField0_ |= to_bitField0_;
         }
 
         @java.lang.Override
@@ -403,15 +440,16 @@ BikeRequestOrBuilder {
             if (other.getId() != 0) {
                 setId(other.getId());
             }
-            if (!other.getLocationId().isEmpty()) {
-                locationId_ = other.locationId_;
+            if (!other.getStationId().isEmpty()) {
+                stationId_ = other.stationId_;
                 bitField0_ |= 0x00000002;
                 onChanged();
             }
-            if (!other.getName().isEmpty()) {
-                name_ = other.name_;
-                bitField0_ |= 0x00000004;
-                onChanged();
+            if (other.hasRating()) {
+                setRating(other.getRating());
+            }
+            if (other.hasTotalTimeRented()) {
+                setTotalTimeRented(other.getTotalTimeRented());
             }
             this.mergeUnknownFields(other.getUnknownFields());
             onChanged();
@@ -445,18 +483,25 @@ BikeRequestOrBuilder {
                         // case 8
                         case 18:
                             {
-                                locationId_ = input.readStringRequireUtf8();
+                                stationId_ = input.readStringRequireUtf8();
                                 bitField0_ |= 0x00000002;
                                 break;
                             }
                         // case 18
-                        case 26:
+                        case 25:
                             {
-                                name_ = input.readStringRequireUtf8();
+                                rating_ = input.readDouble();
                                 bitField0_ |= 0x00000004;
                                 break;
                             }
-                        // case 26
+                        // case 25
+                        case 32:
+                            {
+                                totalTimeRented_ = input.readInt64();
+                                bitField0_ |= 0x00000008;
+                                break;
+                            }
+                        // case 32
                         default:
                             {
                                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
@@ -514,18 +559,18 @@ BikeRequestOrBuilder {
             return this;
         }
 
-        private java.lang.Object locationId_ = "";
+        private java.lang.Object stationId_ = "";
 
         /**
-         * <code>string locationId = 2;</code>
-         * @return The locationId.
+         * <code>string stationId = 2;</code>
+         * @return The stationId.
          */
-        public java.lang.String getLocationId() {
-            java.lang.Object ref = locationId_;
+        public java.lang.String getStationId() {
+            java.lang.Object ref = stationId_;
             if (!(ref instanceof java.lang.String)) {
                 com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
                 java.lang.String s = bs.toStringUtf8();
-                locationId_ = s;
+                stationId_ = s;
                 return s;
             } else {
                 return (java.lang.String) ref;
@@ -533,14 +578,14 @@ BikeRequestOrBuilder {
         }
 
         /**
-         * <code>string locationId = 2;</code>
-         * @return The bytes for locationId.
+         * <code>string stationId = 2;</code>
+         * @return The bytes for stationId.
          */
-        public com.google.protobuf.ByteString getLocationIdBytes() {
-            java.lang.Object ref = locationId_;
+        public com.google.protobuf.ByteString getStationIdBytes() {
+            java.lang.Object ref = stationId_;
             if (ref instanceof String) {
                 com.google.protobuf.ByteString b = com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
-                locationId_ = b;
+                stationId_ = b;
                 return b;
             } else {
                 return (com.google.protobuf.ByteString) ref;
@@ -548,118 +593,129 @@ BikeRequestOrBuilder {
         }
 
         /**
-         * <code>string locationId = 2;</code>
-         * @param value The locationId to set.
+         * <code>string stationId = 2;</code>
+         * @param value The stationId to set.
          * @return This builder for chaining.
          */
-        public Builder setLocationId(java.lang.String value) {
+        public Builder setStationId(java.lang.String value) {
             if (value == null) {
                 throw new NullPointerException();
             }
-            locationId_ = value;
+            stationId_ = value;
             bitField0_ |= 0x00000002;
             onChanged();
             return this;
         }
 
         /**
-         * <code>string locationId = 2;</code>
+         * <code>string stationId = 2;</code>
          * @return This builder for chaining.
          */
-        public Builder clearLocationId() {
-            locationId_ = getDefaultInstance().getLocationId();
+        public Builder clearStationId() {
+            stationId_ = getDefaultInstance().getStationId();
             bitField0_ = (bitField0_ & ~0x00000002);
             onChanged();
             return this;
         }
 
         /**
-         * <code>string locationId = 2;</code>
-         * @param value The bytes for locationId to set.
+         * <code>string stationId = 2;</code>
+         * @param value The bytes for stationId to set.
          * @return This builder for chaining.
          */
-        public Builder setLocationIdBytes(com.google.protobuf.ByteString value) {
+        public Builder setStationIdBytes(com.google.protobuf.ByteString value) {
             if (value == null) {
                 throw new NullPointerException();
             }
             checkByteStringIsUtf8(value);
-            locationId_ = value;
+            stationId_ = value;
             bitField0_ |= 0x00000002;
             onChanged();
             return this;
         }
 
-        private java.lang.Object name_ = "";
+        private double rating_;
 
         /**
-         * <code>string name = 3;</code>
-         * @return The name.
+         * <code>optional double rating = 3;</code>
+         * @return Whether the rating field is set.
          */
-        public java.lang.String getName() {
-            java.lang.Object ref = name_;
-            if (!(ref instanceof java.lang.String)) {
-                com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
-                java.lang.String s = bs.toStringUtf8();
-                name_ = s;
-                return s;
-            } else {
-                return (java.lang.String) ref;
-            }
+        @java.lang.Override
+        public boolean hasRating() {
+            return ((bitField0_ & 0x00000004) != 0);
         }
 
         /**
-         * <code>string name = 3;</code>
-         * @return The bytes for name.
+         * <code>optional double rating = 3;</code>
+         * @return The rating.
          */
-        public com.google.protobuf.ByteString getNameBytes() {
-            java.lang.Object ref = name_;
-            if (ref instanceof String) {
-                com.google.protobuf.ByteString b = com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
-                name_ = b;
-                return b;
-            } else {
-                return (com.google.protobuf.ByteString) ref;
-            }
+        @java.lang.Override
+        public double getRating() {
+            return rating_;
         }
 
         /**
-         * <code>string name = 3;</code>
-         * @param value The name to set.
+         * <code>optional double rating = 3;</code>
+         * @param value The rating to set.
          * @return This builder for chaining.
          */
-        public Builder setName(java.lang.String value) {
-            if (value == null) {
-                throw new NullPointerException();
-            }
-            name_ = value;
+        public Builder setRating(double value) {
+            rating_ = value;
             bitField0_ |= 0x00000004;
             onChanged();
             return this;
         }
 
         /**
-         * <code>string name = 3;</code>
+         * <code>optional double rating = 3;</code>
          * @return This builder for chaining.
          */
-        public Builder clearName() {
-            name_ = getDefaultInstance().getName();
+        public Builder clearRating() {
             bitField0_ = (bitField0_ & ~0x00000004);
+            rating_ = 0D;
+            onChanged();
+            return this;
+        }
+
+        private long totalTimeRented_;
+
+        /**
+         * <code>optional int64 totalTimeRented = 4;</code>
+         * @return Whether the totalTimeRented field is set.
+         */
+        @java.lang.Override
+        public boolean hasTotalTimeRented() {
+            return ((bitField0_ & 0x00000008) != 0);
+        }
+
+        /**
+         * <code>optional int64 totalTimeRented = 4;</code>
+         * @return The totalTimeRented.
+         */
+        @java.lang.Override
+        public long getTotalTimeRented() {
+            return totalTimeRented_;
+        }
+
+        /**
+         * <code>optional int64 totalTimeRented = 4;</code>
+         * @param value The totalTimeRented to set.
+         * @return This builder for chaining.
+         */
+        public Builder setTotalTimeRented(long value) {
+            totalTimeRented_ = value;
+            bitField0_ |= 0x00000008;
             onChanged();
             return this;
         }
 
         /**
-         * <code>string name = 3;</code>
-         * @param value The bytes for name to set.
+         * <code>optional int64 totalTimeRented = 4;</code>
          * @return This builder for chaining.
          */
-        public Builder setNameBytes(com.google.protobuf.ByteString value) {
-            if (value == null) {
-                throw new NullPointerException();
-            }
-            checkByteStringIsUtf8(value);
-            name_ = value;
-            bitField0_ |= 0x00000004;
+        public Builder clearTotalTimeRented() {
+            bitField0_ = (bitField0_ & ~0x00000008);
+            totalTimeRented_ = 0L;
             onChanged();
             return this;
         }

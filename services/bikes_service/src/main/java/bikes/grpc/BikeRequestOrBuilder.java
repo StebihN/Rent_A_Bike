@@ -13,26 +13,38 @@ com.google.protobuf.MessageOrBuilder {
     int getId();
 
     /**
-     * <code>string locationId = 2;</code>
-     * @return The locationId.
+     * <code>string stationId = 2;</code>
+     * @return The stationId.
      */
-    java.lang.String getLocationId();
+    java.lang.String getStationId();
 
     /**
-     * <code>string locationId = 2;</code>
-     * @return The bytes for locationId.
+     * <code>string stationId = 2;</code>
+     * @return The bytes for stationId.
      */
-    com.google.protobuf.ByteString getLocationIdBytes();
+    com.google.protobuf.ByteString getStationIdBytes();
 
     /**
-     * <code>string name = 3;</code>
-     * @return The name.
+     * <code>optional double rating = 3;</code>
+     * @return Whether the rating field is set.
      */
-    java.lang.String getName();
+    boolean hasRating();
 
     /**
-     * <code>string name = 3;</code>
-     * @return The bytes for name.
+     * <code>optional double rating = 3;</code>
+     * @return The rating.
      */
-    com.google.protobuf.ByteString getNameBytes();
+    double getRating();
+
+    /**
+     * <code>optional int64 totalTimeRented = 4;</code>
+     * @return Whether the totalTimeRented field is set.
+     */
+    boolean hasTotalTimeRented();
+
+    /**
+     * <code>optional int64 totalTimeRented = 4;</code>
+     * @return The totalTimeRented.
+     */
+    long getTotalTimeRented();
 }

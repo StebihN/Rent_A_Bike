@@ -10,15 +10,15 @@ import java.util.stream.Stream;
 
 @ApplicationScoped
 public class BikeRepository implements PanacheRepositoryBase<BikeEntity, Integer> {
-    public List<BikeEntity> getByLocation(String locationId){
-        return list("locationId", locationId);
+    public List<BikeEntity> getByStation(String stationId){
+        return list("stationId", stationId);
     }
 
-    public Stream<BikeEntity> getByLocationStream(String locationId){
-        return stream("locationId", locationId);
+    public Stream<BikeEntity> getByStationStream(String stationId){
+        return stream("stationId", stationId);
     }
 
-    public void deleteByLocation(String locationId){
-        delete("locationId", locationId);
+    public void deleteByStation(String stationId){
+        delete("stationId", stationId);
     }
 }

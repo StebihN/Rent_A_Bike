@@ -1,15 +1,14 @@
 package bikes.services;
 
-import bikes.broker.BikeMessage;
 import bikes.entities.BikeEntity;
 
 import bikes.grpc.Bike;
 import bikes.grpc.BikeRequest;
-import bikes.grpc.BikeUpdateRatingRequest;
 import bikes.mappings.BikeMapper;
 import bikes.repositories.BikeRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import com.google.protobuf.Int32Value;
@@ -42,18 +41,18 @@ class BikeServiceTest {
     void configure(){
         BikeEntity mockEntity = new BikeEntity();
         mockEntity.setId(1);
-        mockEntity.setName("name");
-        mockEntity.setLocationId("location");
-        mockEntity.setRentCount(0);
-        mockEntity.setTimeTravelled(0.0);
+        mockEntity.setStationId("station");
+        mockEntity.setTimesRented(0);
+        mockEntity.setTotalTimeRented(0);
         mockEntity.setRating(2.5);
-        mockEntity.setRateCount(1);
+        mockEntity.setTimesRated(1);
 
         Mockito.when(bikeRepository.listAll()).thenReturn(List.of(mockEntity));
         Mockito.when(bikeRepository.findById(1)).thenReturn(mockEntity);
-        Mockito.when(bikeRepository.getByLocation("location")).thenReturn(List.of(mockEntity));
+        Mockito.when(bikeRepository.findByIdOptional(1)).thenReturn(Optional.of(mockEntity));
+        Mockito.when(bikeRepository.getByStation("station")).thenReturn(List.of(mockEntity));
         Mockito.when(bikeRepository.streamAll()).thenReturn(Stream.of(mockEntity));
-        Mockito.when(bikeRepository.getByLocationStream("location")).thenReturn(Stream.of(mockEntity));
+        Mockito.when(bikeRepository.getByStationStream("station")).thenReturn(Stream.of(mockEntity));
     }
 
     @Test
@@ -70,20 +69,20 @@ class BikeServiceTest {
 
         Mockito.verify(bikeRepository).findById(1);
         Assertions.assertEquals(result.getId(), 1);
-        Assertions.assertEquals(result.getName(), "name");
-        Assertions.assertEquals(result.getLocationId(), "location");
+
+        Assertions.assertEquals(result.getStationId(), "station");
         Assertions.assertEquals(result.getRating(), 2.5);
-        Assertions.assertEquals(result.getRentCount(), 0);
-        Assertions.assertEquals(result.getRatingCount(), 1);
-        Assertions.assertEquals(result.getTimeTravelled(), 0.0);
+        Assertions.assertEquals(result.getTimesRented(), 0);
+        Assertions.assertEquals(result.getTimesRated(), 1);
+        Assertions.assertEquals(result.getTotalTimeRented(), 0.0);
     }
 
     @Test
     void getByLocation() {
 
-        List<Bike> result = bikeService.getByLocation(StringValue.of("location"));
+        List<Bike> result = bikeService.getByLocation(StringValue.of("station"));
 
-        Mockito.verify(bikeRepository).getByLocation("location");
+        Mockito.verify(bikeRepository).getByStation("station");
         Assertions.assertEquals(result.size(), 1);
 
     }
@@ -92,8 +91,7 @@ class BikeServiceTest {
     void create() {
         BikeRequest mockBikeRequest = BikeRequest.newBuilder()
                 .setId(1)
-                .setName("name")
-                .setLocationId("location")
+                .setStationId("station")
                 .build();
 
 
@@ -103,81 +101,47 @@ class BikeServiceTest {
         Mockito.verify(bikeRepository).persist(captor.capture());
 
         Assertions.assertEquals(captor.getValue().getId(), 1);
-        Assertions.assertEquals(captor.getValue().getName(), "name");
-        Assertions.assertEquals(captor.getValue().getLocationId(), "location");
+        Assertions.assertEquals(captor.getValue().getStationId(), "station");
         Assertions.assertEquals(captor.getValue().getRating(), 2.5);
-        Assertions.assertEquals(captor.getValue().getRentCount(), 0);
-        Assertions.assertEquals(captor.getValue().getRateCount(), 1);
-        Assertions.assertEquals(captor.getValue().getTimeTravelled(), 0.0);
+        Assertions.assertEquals(captor.getValue().getTimesRented(), 0);
+        Assertions.assertEquals(captor.getValue().getTimesRated(), 1);
+        Assertions.assertEquals(captor.getValue().getTotalTimeRented(), 0);
 
         Assertions.assertEquals(result.getId(), 1);
-        Assertions.assertEquals(result.getName(), "name");
-        Assertions.assertEquals(result.getLocationId(), "location");
+        Assertions.assertEquals(result.getStationId(), "station");
         Assertions.assertEquals(result.getRating(), 2.5);
-        Assertions.assertEquals(result.getRentCount(), 0);
-        Assertions.assertEquals(result.getRatingCount(), 1);
-        Assertions.assertEquals(result.getTimeTravelled(), 0.0);
+        Assertions.assertEquals(result.getTimesRented(), 0);
+        Assertions.assertEquals(result.getTimesRated(), 1);
+        Assertions.assertEquals(result.getTotalTimeRented(), 0);
     }
 
     @Test
     void update() {
         BikeRequest mockBikeRequest = BikeRequest.newBuilder()
-            .setId(1)
-            .setName("newName")
-            .setLocationId("newLocation")
-            .build();
+                .setId(1)
+                .setStationId("station")
+                .setRating(5)
+                .setTotalTimeRented(1000)
+                .build();
 
         Bike result = bikeService.update(mockBikeRequest);
 
-
         ArgumentCaptor<BikeEntity> captor = ArgumentCaptor.forClass(BikeEntity.class);
         Mockito.verify(bikeRepository).persist(captor.capture());
 
         Assertions.assertEquals(captor.getValue().getId(), 1);
-        Assertions.assertEquals(captor.getValue().getName(), "newName");
-        Assertions.assertEquals(captor.getValue().getLocationId(), "newLocation");
-        Assertions.assertEquals(captor.getValue().getRating(), 2.5);
-        Assertions.assertEquals(captor.getValue().getRentCount(), 0);
-        Assertions.assertEquals(captor.getValue().getRateCount(), 1);
-        Assertions.assertEquals(captor.getValue().getTimeTravelled(), 0.0);
-
-        Assertions.assertEquals(result.getId(), 1);
-        Assertions.assertEquals(result.getName(), "newName");
-        Assertions.assertEquals(result.getLocationId(), "newLocation");
-        Assertions.assertEquals(result.getRating(), 2.5);
-        Assertions.assertEquals(result.getRentCount(), 0);
-        Assertions.assertEquals(result.getRatingCount(), 1);
-        Assertions.assertEquals(result.getTimeTravelled(), 0.0);
-    }
-
-    @Test
-    void updateRating() {
-        BikeUpdateRatingRequest mockBikeRequest = BikeUpdateRatingRequest.newBuilder()
-                .setId(1)
-                .setRating(5)
-                .build();
-
-        Bike result = bikeService.updateRating(mockBikeRequest);
-
-
-        ArgumentCaptor<BikeEntity> captor = ArgumentCaptor.forClass(BikeEntity.class);
-        Mockito.verify(bikeRepository).persist(captor.capture());
-
-        Assertions.assertEquals(captor.getValue().getId(), 1);
-        Assertions.assertEquals(captor.getValue().getName(), "name");
-        Assertions.assertEquals(captor.getValue().getLocationId(), "location");
+        Assertions.assertEquals(captor.getValue().getStationId(), "station");
         Assertions.assertEquals(captor.getValue().getRating(), 3.75);
-        Assertions.assertEquals(captor.getValue().getRentCount(), 0);
-        Assertions.assertEquals(captor.getValue().getRateCount(), 2);
-        Assertions.assertEquals(captor.getValue().getTimeTravelled(), 0.0);
+        Assertions.assertEquals(captor.getValue().getTimesRented(), 1);
+        Assertions.assertEquals(captor.getValue().getTimesRated(), 2);
+        Assertions.assertEquals(captor.getValue().getTotalTimeRented(), 1000);
 
         Assertions.assertEquals(result.getId(), 1);
-        Assertions.assertEquals(result.getName(), "name");
-        Assertions.assertEquals(result.getLocationId(), "location");
+        Assertions.assertEquals(result.getStationId(), "station");
         Assertions.assertEquals(result.getRating(), 3.75);
-        Assertions.assertEquals(result.getRatingCount(), 2);
-        Assertions.assertEquals(result.getRentCount(), 0);
-        Assertions.assertEquals(result.getTimeTravelled(), 0.0);
+        Assertions.assertEquals(result.getTimesRented(), 1);
+        Assertions.assertEquals(result.getTimesRated(), 2);
+        Assertions.assertEquals(result.getTotalTimeRented(), 1000);
     }
 
     @Test
@@ -189,16 +153,16 @@ class BikeServiceTest {
 
     @Test
     void deleteByLocation() {
-        bikeService.deleteByLocation(StringValue.of("location"));
+        bikeService.deleteByLocation(StringValue.of("station"));
 
-        Mockito.verify(bikeRepository).deleteByLocation("location");
+        Mockito.verify(bikeRepository).deleteByStation("station");
     }
 
     @Test
     void deleteById() {
         bikeService.deleteById(Int32Value.of(1));
 
-        Mockito.verify(bikeRepository).delete("id", 1);
+        Mockito.verify(bikeRepository).deleteById(1);
     }
 
     @Test
@@ -211,28 +175,9 @@ class BikeServiceTest {
 
     @Test
     void getByLocationStream() {
-        Stream<Bike> result = bikeService.getByLocationStream(StringValue.of("location"));
+        Stream<Bike> result = bikeService.getByLocationStream(StringValue.of("station"));
 
-        Mockito.verify(bikeRepository).getByLocationStream("location");
+        Mockito.verify(bikeRepository).getByStationStream("station");
         Assertions.assertEquals(result.toList().size(), 1);
-    }
-
-    @Test
-    void changeLocation() {
-        BikeMessage mockMessage = new BikeMessage(1, "location2");
-
-        bikeService.changeLocation(mockMessage);
-
-        Mockito.verify(bikeRepository).findById(1);
-        ArgumentCaptor<BikeEntity> captor = ArgumentCaptor.forClass(BikeEntity.class);
-        Mockito.verify(bikeRepository).persist(captor.capture());
-
-        Assertions.assertEquals(captor.getValue().getId(), 1);
-        Assertions.assertEquals(captor.getValue().getName(), "name");
-        Assertions.assertEquals(captor.getValue().getLocationId(), "location2");
-        Assertions.assertEquals(captor.getValue().getRating(), 2.5);
-        Assertions.assertEquals(captor.getValue().getRentCount(), 0);
-        Assertions.assertEquals(captor.getValue().getRateCount(), 1);
-        Assertions.assertEquals(captor.getValue().getTimeTravelled(), 0.0);
     }
 }

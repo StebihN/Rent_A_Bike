@@ -15,8 +15,6 @@ public interface Bikes extends MutinyService {
 
     io.smallrye.mutiny.Uni<bikes.grpc.Bike> create(bikes.grpc.BikeRequest request);
 
-    io.smallrye.mutiny.Uni<bikes.grpc.Bike> updateRatingById(bikes.grpc.BikeUpdateRatingRequest request);
-
     io.smallrye.mutiny.Uni<com.google.protobuf.Empty> deleteById(com.google.protobuf.Int32Value request);
 
     io.smallrye.mutiny.Uni<com.google.protobuf.Empty> deleteAll(com.google.protobuf.Empty request);

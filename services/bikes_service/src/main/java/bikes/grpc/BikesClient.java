@@ -51,11 +51,6 @@ public class BikesClient implements Bikes, MutinyClient<MutinyBikesGrpc.MutinyBi
     }
 
     @Override
-    public io.smallrye.mutiny.Uni<bikes.grpc.Bike> updateRatingById(bikes.grpc.BikeUpdateRatingRequest request) {
-        return stub.updateRatingById(request);
-    }
-
-    @Override
     public io.smallrye.mutiny.Uni<com.google.protobuf.Empty> deleteById(com.google.protobuf.Int32Value request) {
         return stub.deleteById(request);
     }

@@ -1,6 +1,6 @@
 package bikes.services;
 
-import bikes.broker.BikeMessage;
+
 import bikes.entities.BikeEntity;
 import bikes.grpc.*;
 import bikes.mappings.BikeMapper;
@@ -11,13 +11,13 @@ import jakarta.annotation.Nonnull;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.control.ActivateRequestContext;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-
+@Slf4j
 @ApplicationScoped
 public class BikeService {
     private final BikeRepository bikeRepository;
@@ -33,6 +33,7 @@ public class BikeService {
         List<BikeEntity> bikes = bikeRepository.listAll();
         return this.bikeMapper.toDomainList(bikes);
     }
+
     @ActivateRequestContext
     public Bike getById(@Nonnull Int32Value id) {
         BikeEntity bike = bikeRepository.findById(id.getValue());
@@ -40,30 +41,38 @@ public class BikeService {
     }
 
     @ActivateRequestContext
-    public List<Bike> getByLocation (StringValue locationId){
-        List<BikeEntity> bikes = bikeRepository.getByLocation(locationId.getValue());
+    public List<Bike> getByLocation(StringValue locationId) {
+        List<BikeEntity> bikes = bikeRepository.getByStation(locationId.getValue());
         return this.bikeMapper.toDomainList(bikes);
     }
 
     @Transactional
-    public Bike create (BikeRequest bike) {
+    public Bike create(BikeRequest bike) {
         BikeEntity entity = bikeMapper.toEntityFromDomainDto(bike);
         entity.setRating(2.5);
-        entity.setRentCount(0);
-        entity.setRateCount(1);
-        entity.setTimeTravelled(0.0);
+        entity.setTimesRated(1);
+        entity.setTimesRented(0);
+        entity.setTotalTimeRented(0);
         bikeRepository.persist(entity);
         return bikeMapper.toDomain(entity);
     }
 
     @Transactional
-    public Bike update (BikeRequest bike) {
+    public Bike update(BikeRequest bike) {
         Optional<BikeEntity> optionalEntity = bikeRepository.findByIdOptional(bike.getId());
-
-        if(optionalEntity.isPresent()) {
+        if (optionalEntity.isPresent()) {
             BikeEntity entity = optionalEntity.get();
+            entity.setStationId(bike.getStationId());
 
-            bikeMapper.updateEntityFromDomainDto(bike, entity);
+            if(bike.hasRating()){
+                Double rating = (entity.getRating() * entity.getTimesRated() + bike.getRating()) / (entity.getTimesRated() + 1);
+                entity.setRating(rating);
+                entity.setTimesRated(entity.getTimesRated() + 1);
+            }
+            if(bike.hasTotalTimeRented()){
+                entity.setTotalTimeRented(entity.getTotalTimeRented() + bike.getTotalTimeRented());
+                entity.setTimesRented(entity.getTimesRented() + 1);
+            }
             bikeRepository.persist(entity);
 
             return bikeMapper.toDomain(entity);
@@ -72,35 +81,21 @@ public class BikeService {
     }
 
     @Transactional
-    public Bike updateRating (BikeUpdateRatingRequest bike) {
-        Optional<BikeEntity> optionalEntity = bikeRepository.findByIdOptional(bike.getId());
-
-        if(optionalEntity.isPresent()) {
-            BikeEntity entity = optionalEntity.get();
-            Double rating = (entity.getRating() * entity.getRateCount() + bike.getRating()) / (entity.getRateCount() + 1);
-
-            entity.setRating(rating);
-            entity.setRateCount(entity.getRateCount() + 1);
-
-            bikeRepository.persist(entity);
-            return bikeMapper.toDomain(entity);
-        }
-            return null;
-
-    }
-    @Transactional
     public void deleteAll() {
         bikeRepository.deleteAll();
     }
 
     @Transactional
     public void deleteByLocation(StringValue locationId) {
-        bikeRepository.deleteByLocation(locationId.getValue());
+        bikeRepository.deleteByStation(locationId.getValue());
     }
 
     @Transactional
-    public Long deleteById (Int32Value id){
-        return bikeRepository.delete("id", id.getValue());
+    public void deleteById(Int32Value id) {
+        Optional <BikeEntity> optionalBikeEntity = bikeRepository.findByIdOptional(id.getValue());
+        if(optionalBikeEntity.isPresent()) {
+            bikeRepository.deleteById(id.getValue());
+        }
     }
 
     @ActivateRequestContext
@@ -109,15 +104,8 @@ public class BikeService {
     }
 
     @ActivateRequestContext
-    public Stream<Bike> getByLocationStream (StringValue locationId){
-        return bikeRepository.getByLocationStream(locationId.getValue()).map(bikeMapper::toDomain);
+    public Stream<Bike> getByLocationStream(StringValue locationId) {
+        return bikeRepository.getByStationStream(locationId.getValue()).map(bikeMapper::toDomain);
     }
-    @Transactional
-    public void changeLocation(BikeMessage bikeMessage){
-        BikeEntity bikeEntity = bikeRepository.findById(bikeMessage.getId());
-        bikeEntity.setLocationId(bikeMessage.getLocationId());
-        bikeRepository.persist(bikeEntity);
-    }
-
 
 }

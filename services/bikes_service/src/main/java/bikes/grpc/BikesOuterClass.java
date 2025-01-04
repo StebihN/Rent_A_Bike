@@ -15,10 +15,6 @@ public final class BikesOuterClass {
         registerAllExtensions((com.google.protobuf.ExtensionRegistryLite) registry);
     }
 
-    static final com.google.protobuf.Descriptors.Descriptor internal_static_BikeUpdateRatingRequest_descriptor;
-
-    static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_BikeUpdateRatingRequest_fieldAccessorTable;
-
     static final com.google.protobuf.Descriptors.Descriptor internal_static_BikeRequest_descriptor;
 
     static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_BikeRequest_fieldAccessorTable;
@@ -38,15 +34,13 @@ public final class BikesOuterClass {
     private static com.google.protobuf.Descriptors.FileDescriptor descriptor;
 
     static {
-        java.lang.String[] descriptorData = { "\n\013bikes.proto\032\033google/protobuf/empty.pro" + "to\032\036google/protobuf/wrappers.proto\"5\n\027Bi" + "keUpdateRatingRequest\022\n\n\002id\030\001 \001(\005\022\016\n\006rat" + "ing\030\002 \001(\001\";\n\013BikeRequest\022\n\n\002id\030\001 \001(\005\022\022\n\n" + "locationId\030\002 \001(\t\022\014\n\004name\030\003 \001(\t\"\203\001\n\004Bike\022" + "\n\n\002id\030\001 \001(\005\022\022\n\nlocationId\030\002 \001(\t\022\014\n\004name\030" + "\003 \001(\t\022\016\n\006rating\030\004 \001(\001\022\023\n\013ratingCount\030\005 \001" + "(\005\022\025\n\rtimeTravelled\030\006 \001(\001\022\021\n\trentCount\030\007" + " \001(\005\" \n\010BikeList\022\024\n\005bikes\030\001 \003(\0132\005.Bike2\315" + "\004\n\005Bikes\022/\n\014GetAllStream\022\026.google.protob" + "uf.Empty\032\005.Bike0\001\022+\n\006GetAll\022\026.google.pro" + "tobuf.Empty\032\t.BikeList\022<\n\023GetByLocationS" + "tream\022\034.google.protobuf.StringValue\032\005.Bi" + "ke0\001\0228\n\rGetByLocation\022\034.google.protobuf." + "StringValue\032\t.BikeList\022-\n\007GetById\022\033.goog" + "le.protobuf.Int32Value\032\005.Bike\022!\n\nUpdateB" + "yId\022\014.BikeRequest\032\005.Bike\022\035\n\006Create\022\014.Bik" + "eRequest\032\005.Bike\0223\n\020UpdateRatingById\022\030.Bi" + "keUpdateRatingRequest\032\005.Bike\022A\n\nDeleteBy" + "Id\022\033.google.protobuf.Int32Value\032\026.google" + ".protobuf.Empty\022;\n\tDeleteAll\022\026.google.pr" + "otobuf.Empty\032\026.google.protobuf.Empty\022H\n\020" + "DeleteByLocation\022\034.google.protobuf.Strin" + "gValue\032\026.google.protobuf.EmptyB\016\n\nbikes." + "grpcP\001b\006proto3" };
+        java.lang.String[] descriptorData = { "\n\013bikes.proto\032\033google/protobuf/empty.pro" + "to\032\036google/protobuf/wrappers.proto\"~\n\013Bi" + "keRequest\022\n\n\002id\030\001 \001(\005\022\021\n\tstationId\030\002 \001(\t" + "\022\023\n\006rating\030\003 \001(\001H\000\210\001\001\022\034\n\017totalTimeRented" + "\030\004 \001(\003H\001\210\001\001B\t\n\007_ratingB\022\n\020_totalTimeRent" + "ed\"w\n\004Bike\022\n\n\002id\030\001 \001(\005\022\021\n\tstationId\030\002 \001(" + "\t\022\016\n\006rating\030\003 \001(\001\022\022\n\ntimesRated\030\004 \001(\005\022\023\n" + "\013timesRented\030\005 \001(\005\022\027\n\017totalTimeRented\030\006 " + "\001(\003\" \n\010BikeList\022\024\n\005bikes\030\001 \003(\0132\005.Bike2\230\004" + "\n\005Bikes\022/\n\014GetAllStream\022\026.google.protobu" + "f.Empty\032\005.Bike0\001\022+\n\006GetAll\022\026.google.prot" + "obuf.Empty\032\t.BikeList\022<\n\023GetByLocationSt" + "ream\022\034.google.protobuf.StringValue\032\005.Bik" + "e0\001\0228\n\rGetByLocation\022\034.google.protobuf.S" + "tringValue\032\t.BikeList\022-\n\007GetById\022\033.googl" + "e.protobuf.Int32Value\032\005.Bike\022!\n\nUpdateBy" + "Id\022\014.BikeRequest\032\005.Bike\022\035\n\006Create\022\014.Bike" + "Request\032\005.Bike\022A\n\nDeleteById\022\033.google.pr" + "otobuf.Int32Value\032\026.google.protobuf.Empt" + "y\022;\n\tDeleteAll\022\026.google.protobuf.Empty\032\026" + ".google.protobuf.Empty\022H\n\020DeleteByLocati" + "on\022\034.google.protobuf.StringValue\032\026.googl" + "e.protobuf.EmptyB\016\n\nbikes.grpcP\001b\006proto3" };
         descriptor = com.google.protobuf.Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(descriptorData, new com.google.protobuf.Descriptors.FileDescriptor[] { com.google.protobuf.EmptyProto.getDescriptor(), com.google.protobuf.WrappersProto.getDescriptor() });
-        internal_static_BikeUpdateRatingRequest_descriptor = getDescriptor().getMessageTypes().get(0);
-        internal_static_BikeUpdateRatingRequest_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(internal_static_BikeUpdateRatingRequest_descriptor, new java.lang.String[] { "Id", "Rating" });
-        internal_static_BikeRequest_descriptor = getDescriptor().getMessageTypes().get(1);
-        internal_static_BikeRequest_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(internal_static_BikeRequest_descriptor, new java.lang.String[] { "Id", "LocationId", "Name" });
-        internal_static_Bike_descriptor = getDescriptor().getMessageTypes().get(2);
-        internal_static_Bike_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(internal_static_Bike_descriptor, new java.lang.String[] { "Id", "LocationId", "Name", "Rating", "RatingCount", "TimeTravelled", "RentCount" });
-        internal_static_BikeList_descriptor = getDescriptor().getMessageTypes().get(3);
+        internal_static_BikeRequest_descriptor = getDescriptor().getMessageTypes().get(0);
+        internal_static_BikeRequest_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(internal_static_BikeRequest_descriptor, new java.lang.String[] { "Id", "StationId", "Rating", "TotalTimeRented" });
+        internal_static_Bike_descriptor = getDescriptor().getMessageTypes().get(1);
+        internal_static_Bike_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(internal_static_Bike_descriptor, new java.lang.String[] { "Id", "StationId", "Rating", "TimesRated", "TimesRented", "TotalTimeRented" });
+        internal_static_BikeList_descriptor = getDescriptor().getMessageTypes().get(2);
         internal_static_BikeList_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(internal_static_BikeList_descriptor, new java.lang.String[] { "Bikes" });
         com.google.protobuf.EmptyProto.getDescriptor();
         com.google.protobuf.WrappersProto.getDescriptor();
