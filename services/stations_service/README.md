@@ -1,7 +1,6 @@
 
 ![SpringBoot](https://img.shields.io/badge/SpringBoot-black?logo=Springboot)
 ![MongoDB](https://img.shields.io/badge/MongoDB-white?logo=mongodb)
-![ActiveMQ Artemis](https://img.shields.io/badge/ActiveMQ%20Artemis-red)
 
 
 # Station Management
@@ -9,13 +8,11 @@ This microservice manages bike stations. It provides functionalities to fetch, c
 
 Each station the following properties:  
 - id, 
-- city, 
-- street, 
+- name
 - latitude, 
 - longitude,
 - slot count, 
 - bike count
-
 
 
 ## API Endpoints
@@ -23,16 +20,19 @@ Each station the following properties:
 #### Get All Stations
 
 ```http
-  GET /stations/all
+  GET /stations/get/all
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
+#### Get Stations with free spots
+
+```http
+  GET /stations/get/free
+```
 
 #### Get Station By Id
 
 ```http
-  GET /stations/:id
+  GET /stations/get/:id
 ```
 
 | Parameter | Type     | Description                       |
@@ -46,36 +46,31 @@ Each station the following properties:
   POST /stations/create
 ```
 
-| Parameter          | Type     | Description                                          |
-|:-------------------|:---------|:-----------------------------------------------------|
-| `id`               | `string` | **Required**. Id of the station to update            |
-| `city`             | `string` | **Required**. City in which the station is located   |
-| `street`           | `string` | **Required**. Street in which the station is located |
-| `latitude`         | `string` | **Required**. Latitude of the station                |
-| `longitude`        | `string` | **Required**. Longitude of the locatio               |
-| `numberOfStations` | `int`    | **Required**. No. of stations at the station         |
-| `numberOfBikes`    | `int`    | **Required**. No. of bikes at the station            |
+| Parameter   | Type     | Description                               |
+|:------------|:---------|:------------------------------------------|
+| `name`      | `string` | **Required**. Name of the station         |
+| `latitude`  | `string` | **Required**. Latitude of the station     |
+| `longitude` | `string` | **Required**. Longitude of the locatio    |
+| `slotCount` | `int`    | **Required**. No. of slots at the station |
+
 
 #### Update Station
 
 ```http
   PUT /stations/update
 ```
-
-| Parameter         | Type     | Description                               |
-|:------------------| :------- |:------------------------------------------|
-| `id`              | `string` | **Required**. Id of the station to update |
-| `city`            | `string` | City in which the station is located      |
-| `street`          | `string` | Street in which the station is located    |
-| `latitude`        | `string` | Latitude of the station                   |
-| `longitude`       | `string` | Longitude of the locatio                  |
-| `numberOfStations`| `int`    | No. of stations at the station            |
-| `numberOfBikes`   | `int`    | No. of bikes at the station               |
+| Parameter   | Type     | Description                               |
+|:------------|:---------|:------------------------------------------|
+| `id`        | `string` | **Required**. Id of the station to update |
+| `name`      | `string` | **Required**. Name of the station         |
+| `latitude`  | `string` | **Required**. Latitude of the station     |
+| `longitude` | `string` | **Required**. Longitude of the locatio    |
+| `slotCount` | `int`    | **Required**. No. of slots at the station |
 
 #### Delete Station By Id
 
 ```http
-  DELETE /stations/:id
+  DELETE /stations/delete/:id
 ```
 
 | Parameter | Type     | Description                               |
@@ -85,33 +80,27 @@ Each station the following properties:
 #### Delete All Stations
 
 ```http
-  DELETE /stations/all
+  DELETE /stations/delete/all
 ```
 
-| Parameter | Type     | Description                               |
-| :-------- | :------- |:------------------------------------------|
-
-
-#### Add bike to Station
+####  Rent bike from Station
 
 ```http
-  POST /stations/add
+  PATCH /stations/rent/:id
 ```
 
-| Parameter   | Type     | Description                                        |
-|:------------|:---------|:---------------------------------------------------|
-| `id`        | `string` | **Required**. Id of the bike to add                |
-| `stationId` | `string` | **Required**. Id of the station to add the bike to |
+| Parameter | Type     | Description                                                  |
+| :-------- | :------- |:-------------------------------------------------------------|
+| `id`      | `string` | **Required**. Id of the Station where a bike is being rented |
 
-#### Remove bike from Station
+#### Return bike to Station
 
 ```http
-  POST /stations/remove
+  PATCH /stations/return/:id
 ```
 
-| Parameter   | Type     | Description                                             |
-|:------------|:---------|:--------------------------------------------------------|
-| `id`        | `string` | **Required**. Id of the bike to remove                  |
-| `stationId` | `string` | **Required**. Id of the station to remove the bike from |
+| Parameter | Type     | Description                                                    |
+| :-------- | :------- |:---------------------------------------------------------------|
+| `id`      | `string` | **Required**. Id of the Station where a bike is being returned |
 
 

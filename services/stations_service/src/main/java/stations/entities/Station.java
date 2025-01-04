@@ -7,8 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Station {
 
     private String id;
-    private String city;
-    private String street;
+    private String name;
     private double latitude;
     private double longitude;
     private int slotCount;
@@ -16,9 +15,8 @@ public class Station {
 
 
 
-    public Station(String city, String street, double latitude, double longitude, int slotCount) {
-        this.city = city;
-        this.street = street;
+    public Station(String name, double latitude, double longitude, int slotCount) {
+        this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.slotCount = slotCount;
@@ -32,20 +30,12 @@ public class Station {
         this.id = id;
     }
 
-    public String getCity() {
-        return city;
+    public String getName() {
+        return name;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public double getLatitude() {
