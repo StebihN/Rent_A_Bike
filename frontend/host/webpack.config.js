@@ -7,9 +7,11 @@ const deps = require("./package.json").dependencies;
 
 const printCompilationMessage = require('./compilation.config.js');
 
+require('dotenv').config()
+
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:2000/",
+    publicPath: process.env.PUBLIC_PATH + "/",
   },
 
   resolve: {
@@ -65,11 +67,15 @@ module.exports = (_, argv) => ({
       name: "host",
       filename: "remoteEntry.js",
       remotes: {
-        users: `users@localhost://2003/remoteEntry.js`,
-        locations: `locations@localhost://2002/remoteEntry.js`,
-        bikes: `bikes@localhost://2001/remoteEntry.js`
+        host: `host@${process.env.PUBLIC_PATH}/remoteEntry.js`,
+        users: `users@${process.env.USERS_URI}/remoteEntry.js`,
+        stations: `stations@${process.env.STATIONS_URI}/remoteEntry.js`,
+        bikes: `bikes@${process.env.BIKES_URI}/remoteEntry.js`,
       },
-      exposes: {},
+      exposes: {
+        "./RentProvider": "./src/components/providers/RentProvider.jsx",
+        "./AuthProvider" : "./src/components/providers/AuthProvider.jsx",
+      },
       shared: {
         ...deps,
         react: {
@@ -83,7 +89,7 @@ module.exports = (_, argv) => ({
       },
     }),
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
+      template: "./public/index.html",
     }),
     new Dotenv()
   ],
