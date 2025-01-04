@@ -7,9 +7,11 @@ const deps = require("./package.json").dependencies;
 
 const printCompilationMessage = require('./compilation.config.js');
 
+require('dotenv').config()
+
 module.exports = (_, argv) => ({
   output: {
-    publicPath: "http://localhost:2002/",
+    publicPath: process.env.PUBLIC_PATH + "/",
   },
 
   resolve: {
@@ -17,7 +19,7 @@ module.exports = (_, argv) => ({
   },
 
   devServer: {
-    port: 2002,
+    port: 2001,
     historyApiFallback: true,
     watchFiles: [path.resolve(__dirname, 'src')],
     onListening: function (devServer) {
@@ -64,8 +66,15 @@ module.exports = (_, argv) => ({
     new ModuleFederationPlugin({
       name: "stations",
       filename: "remoteEntry.js",
-      remotes: {},
-      exposes: {},
+      remotes: {
+        host: `host@${process.env.HOST_URI}/remoteEntry.js`
+      },
+      exposes: {
+        "./UserViewPage": "./src/pages/UserViewPage.jsx",
+        "./ViewPage": "./src/pages/ViewPage.jsx",
+        "./CreatePage": "./src/pages/CreatePage.jsx",
+        "./UpdatePage" : "./src/pages/UpdatePage.jsx",
+      },
       shared: {
         ...deps,
         react: {
@@ -79,7 +88,7 @@ module.exports = (_, argv) => ({
       },
     }),
     new HtmlWebPackPlugin({
-      template: "./src/index.html",
+      template: "./public/index.html",
     }),
     new Dotenv()
   ],
