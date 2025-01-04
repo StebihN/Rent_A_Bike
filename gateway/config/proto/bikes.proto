@@ -16,32 +16,27 @@ service Bikes {
   rpc GetById (google.protobuf.Int32Value) returns (Bike);
   rpc UpdateById (BikeRequest) returns (Bike);
   rpc Create (BikeRequest) returns (Bike);
-  rpc UpdateRatingById (BikeUpdateRatingRequest) returns (Bike);
 
   rpc DeleteById (google.protobuf.Int32Value) returns (google.protobuf.Empty);
   rpc DeleteAll (google.protobuf.Empty) returns (google.protobuf.Empty);
   rpc DeleteByLocation (google.protobuf.StringValue) returns (google.protobuf.Empty);
-}
 
-message BikeUpdateRatingRequest{
-  int32 id = 1;
-  double rating = 2;
 }
 
 message BikeRequest{
   int32 id = 1;
-  string locationId = 2;
-  string name = 3;
+  string stationId = 2;
+  optional double rating = 3;
+  optional int64 totalTimeRented = 4;
 }
 
 message Bike{
   int32 id = 1;
-  string locationId = 2;
-  string name = 3;
-  double rating = 4;
-  int32 ratingCount = 5;
-  double timeTravelled = 6;
-  int32 rentCount = 7;
+  string stationId = 2;
+  double rating = 3;
+  int32 timesRated = 4;
+  int32 timesRented = 5;
+  int64 totalTimeRented = 6;
 }
 
 message BikeList {

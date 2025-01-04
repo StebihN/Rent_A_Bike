@@ -1,7 +1,7 @@
-const axios = require('axios');
+const stations = require("../config/stations")
 
 exports.getStations = (req, res) => {
-    axios.get("http://localhost:8080/stations/get/all")
+    stations.get("/get/all")
         .then((response) => {
             res.status(200).send(response.data);
         })
@@ -16,8 +16,24 @@ exports.getStations = (req, res) => {
         })
 }
 
+exports.getFreeStations = (req, res) => {
+    stations.get("/get/free")
+    .then((response) => {
+        res.status(200).send(response.data);
+    })
+    .catch(error => {
+        if (error.response) {
+            res.status(error.response.status).json(error.response.data)
+        } else if (error.request) {
+            res.status(503).json({ message: "Service unavailable" });
+        } else {
+            res.status(500).json({ message: "Some error occured while processing request" });
+        }
+    })
+}
+
 exports.getStationById = (req, res) => {
-    axios.get("http://localhost:8080/stations/get/" + req.params.id)
+    stations.get("/get/" + req.params.id)
         .then((response) => {
             res.status(200).send(response.data);
         })
@@ -34,14 +50,13 @@ exports.getStationById = (req, res) => {
 
 exports.createStation = (req, res) => {
     const station = {
-        city: req.body.city,
-        street: req.body.street,
+        id: req.body.id,
+        name: req.body.name,
         latitude: req.body.latitude,
         longitude: req.body.longitude,
         slotCount: req.body.slotCount,
-        bikeCount: req.body.bikeCount
     }
-    axios.post("http://localhost:8080/stations/create", station)
+    stations.post("/create", station)
         .then((response) => {
             res.status(201).send(response.data);
         })
@@ -59,14 +74,14 @@ exports.createStation = (req, res) => {
 exports.updateStationById = (req, res) => {
     let station = {
         id: req.body.id,
-        city: req.body.city,
-        street: req.body.street,
+        name: req.body.name,
         latitude: req.body.latitude,
         longitude: req.body.longitude,
         slotCount: req.body.slotCount,
         bikeCount: req.body.bikeCount
     }
-    axios.put("http://localhost:8080/stations/update", station)
+
+    stations.put("/update", station)
         .then((response) => {
             res.status(203).send(response.data);
         })
@@ -82,7 +97,7 @@ exports.updateStationById = (req, res) => {
 }
 
 exports.deleteStationById = (req, res) => {
-    axios.delete("http://localhost:8080/stations/delete/" + req.params.id)
+    stations.delete("/delete/" + req.params.id)
         .then((response) => {
             res.status(204).send(response.data)
         })
@@ -98,7 +113,7 @@ exports.deleteStationById = (req, res) => {
 }
 
 exports.deleteAll = (req, res) => {
-    axios.delete("http://localhost:8080/stations/delete/all")
+    stations.delete("/delete/all")
         .then((response) => {
             res.status(204).send(response.data)
         })
@@ -113,12 +128,9 @@ exports.deleteAll = (req, res) => {
         })
 }
 
-exports.addBike = (req, res) => {
-    const request = {
-        id: req.body.id,
-        stationId: req.body.stationId
-    }
-    axios.post("http://localhost:8080/stations/add", request)
+exports.return = (req, res) => {
+
+    stations.patch("/return/" + req.params.id)
         .then((response) => {
             res.status(203).send(response.data)
         })
@@ -133,12 +145,8 @@ exports.addBike = (req, res) => {
         })
 }
 
-exports.removeBike = (req, res) => {
-    const request = {
-        id: req.body.id,
-        stationId: req.body.stationId
-    }
-    axios.post("http://localhost:8080/stations/remove", request)
+exports.rent = (req, res) => {
+    stations.patch("/rent/" + req.params.id)
         .then((response) => {
             res.status(203).send(response.data)
         })

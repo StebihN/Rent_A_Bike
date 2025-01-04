@@ -1,12 +1,10 @@
-const users = require("../config/users")
-const generateJwt = require('../util/generateJwt')
+const rentals = require("../config/rentals")
 
-exports.getUserById = (req, res) => {
-    users.get("/get/" + req.params.id)
+exports.getRentalByUserId = (req, res) => {
+    rentals.get("/get/by_user/" + req.params.id)
         .then((response) => {
             res.status(200).send(response.data);
-        })
-        .catch(error => {
+        }).catch((error) => {
             if (error.response) {
                 res.status(error.response.status).json(error.response.data)
             } else if (error.request) {
@@ -14,71 +12,13 @@ exports.getUserById = (req, res) => {
             } else {
                 res.status(500).json({ message: "Some error occured while processing request" });
             }
-        })
+        });
 }
-exports.getUsers = (req, res) => {
-    users.get("/get")
+exports.existsByUserId = (req, res) => {
+    rentals.get("/exists/by_user/" + req.params.id)
         .then((response) => {
-            res.status(200).send(response.data);
-        })
-        .catch(error => {
-            if (error.response) {
-                res.status(error.response.status).json(error.response.data)
-            } else if (error.request) {
-                res.status(503).json({ message: "Service unavailable" });
-            } else {
-                res.status(500).json({ message: "Some error occured while processing request" });
-            }
-        })
-}
-exports.login = (req, res) => {
-    const user = {
-        email: req.body.email,
-        password: req.body.password
-    };
-    users.post("/login", user)
-        .then((response) => {
-            res.status(200).send({ token: generateJwt(response.data) });
-        })
-        .catch(error => {
-            if (error.response) {
-                res.status(error.response.status).json(error.response.data)
-            } else if (error.request) {
-                res.status(503).json({ message: "Service unavailable" });
-            } else {
-                res.status(500).json({ message: "Some error occured while processing request" });
-            }
-        })
-}
-
-exports.createUser = (req, res) => {
-    const user = {
-        name: req.body.name,
-        surname: req.body.surname,
-        email: req.body.email,
-        password: req.body.password
-    };
-    users.post("/create", user)
-        .then((response) => {
-            res.status(201).send(response.data);
-        })
-        .catch(error => {
-            if (error.response) {
-                res.status(error.response.status).json(error.response.data)
-            } else if (error.request) {
-                res.status(503).json({ message: "Service unavailable" });
-            } else {
-                res.status(500).json({ message: "Some error occured while processing request" });
-            }
-        })
-}
-
-exports.updateRent = (req, res) => {
-    users.patch("/update/rent/" + req.params.id)
-        .then((response) => {
-            res.status(204).send(response.data);
-        })
-        .catch((error) => {
+            res.status(204)
+        }).catch((error) => {
             if (error.response) {
                 res.status(error.response.status).json(error.response.data)
             } else if (error.request) {
@@ -89,54 +29,11 @@ exports.updateRent = (req, res) => {
         });
 }
 
-exports.updateUserById = (req, res) => {
-    const user = {
-        name: req.body.name,
-        surname: req.body.surname,
-        email: req.body.email,
-    };
-    users.put("/update/" + req.params.id, user)
-        .then((response) => {
-            res.status(203).send(response.data);
-        })
-        .catch(error => {
-            if (error.response) {
-                res.status(error.response.status).json(error.response.data)
-            } else if (error.request) {
-                res.status(503).json({ message: "Service unavailable" });
-            } else {
-                res.status(500).json({ message: "Some error occured while processing request" });
-            }
-        })
-}
-
-exports.updatePasswordById = (req, res) => {
-    const password = {
-        oldPassword: req.body.oldPassword,
-        newPassword: req.body.newPassword
-    };
-    
-    users.put("/update/password/" + req.params.id, password)
-        .then((response) => {
-            res.status(203).send(response.data);
-        })
-        .catch(error => {
-            if (error.response) {
-                res.status(error.response.status).json(error.response.data)
-            } else if (error.request) {
-                res.status(503).json({ message: "Service unavailable" });
-            } else {
-                res.status(500).json({ message: "Some error occured while processing request" });
-            }
-        })
-}
-
-exports.deleteUserById = (req, res) => {
-    users.delete("/delete/" + req.params.id)
+exports.getRentalById = (req, res) => {
+    rentals.get("/get/" + req.params.id)
         .then((response) => {
             res.status(200).send(response.data);
-        })
-        .catch(error => {
+        }).catch((error) => {
             if (error.response) {
                 res.status(error.response.status).json(error.response.data)
             } else if (error.request) {
@@ -144,15 +41,14 @@ exports.deleteUserById = (req, res) => {
             } else {
                 res.status(500).json({ message: "Some error occured while processing request" });
             }
-        })
+        });
 }
 
-exports.deleteAll = (req, res) => {
-    users.delete("/delete")
+exports.getAllRentals = (req, res) => {
+    rentals.get("/get/all")
         .then((response) => {
             res.status(200).send(response.data);
-        })
-        .catch(error => {
+        }).catch((error) => {
             if (error.response) {
                 res.status(error.response.status).json(error.response.data)
             } else if (error.request) {
@@ -160,6 +56,76 @@ exports.deleteAll = (req, res) => {
             } else {
                 res.status(500).json({ message: "Some error occured while processing request" });
             }
-        })
+        });
 }
 
+exports.updateRental = (req, res) => {
+    const rental = {
+        userId: req.body.userId,
+        bikeId: req.body.bikeId,
+        rentedOn: req.body.rentedOn
+    }
+    rentals.put("/update/" + req.params.id, rental)
+        .then((response) => {
+            res.status(203).send(response.data);
+        }).catch((error) => {
+            if (error.response) {
+                res.status(error.response.status).json(error.response.data)
+            } else if (error.request) {
+                res.status(503).json({ message: "Service unavailable" });
+            } else {
+                res.status(500).json({ message: "Some error occured while processing request" });
+            }
+        });
+}
+
+exports.createRental = (req, res) => {
+    const rental = {
+        userId: req.body.userId,
+        bikeId: req.body.bikeId,
+        rentedOn: req.body.rentedOn
+    }
+    rentals.post("/create", rental)
+        .then((response) => {
+            res.status(201).send(response.data);
+        }).catch((error) => {
+            if (error.response) {
+                res.status(error.response.status).json(error.response.data)
+            } else if (error.request) {
+                res.status(503).json({ message: "Service unavailable" });
+            } else {
+                res.status(500).json({ message: "Some error occured while processing request" });
+            }
+        });
+
+}
+
+exports.deleteRentalById = (req, res) => {
+    rentals.delete("/delete/" + req.params.id)
+        .then((response) => {
+            res.status(204).send(response.data)
+        }).catch((error) => {
+            if (error.response) {
+                res.status(error.response.status).json(error.response.data)
+            } else if (error.request) {
+                res.status(503).json({ message: "Service unavailable" });
+            } else {
+                res.status(500).json({ message: "Some error occured while processing request" });
+            }
+        });
+}
+
+exports.getDeleteAllRentals = (req, res) => {
+    rentals.delete("/delete/all")
+        .then((response) => {
+            res.status(204).send(response.data)
+        }).catch((error) => {
+            if (error.response) {
+                res.status(error.response.status).json(error.response.data)
+            } else if (error.request) {
+                res.status(503).json({ message: "Service unavailable" });
+            } else {
+                res.status(500).json({ message: "Some error occured while processing request" });
+            }
+        });
+}
