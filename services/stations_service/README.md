@@ -103,4 +103,46 @@ Each station the following properties:
 | :-------- | :------- |:---------------------------------------------------------------|
 | `id`      | `string` | **Required**. Id of the Station where a bike is being returned |
 
+## Database
+This app requires a running MongoDB database to store data (MongoDB community server, MongoDB Atlas, MongoDB docker image,...).
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your `src/main/resources/application.properties` file
+
+
+| Variable                  | Description   |
+|:--------------------------|:--------------|
+| `spring.data.mongodb.uri` | Database URI  |
+
+
+## Running the app
+The app can be run using mvn or as a docker container
+
+1. **Using mvn**
+
+Run the app
+
+```bash
+  mvn spring-boot:run
+```
+
+2. **As a docker container**
+
+Package the app
+```
+mvn package
+```
+Build a docker image
+
+```bash
+  docker build -f Dockerfile -t stations-service . 
+``` 
+
+Run the container
+
+```bash
+  docker run -p 8080:8080 --name stations-service stations-service 
+``` 
+
 

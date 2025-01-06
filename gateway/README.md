@@ -2,7 +2,7 @@
 ![Express_JS](https://img.shields.io/badge/Express_JS-gray?logo=express) 
 
 # Desktop API gateway
-This is an API gateway that provides joined access to all other microservices.
+This is an API gateway that provides joined access to all other services.
 
 
 
@@ -401,6 +401,50 @@ This is an API gateway that provides joined access to all other microservices.
 ```http
   DELETE /rentals/delete/all
 ```
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+| Variable       | Description                             |
+|:---------------|:----------------------------------------|
+| `USERS_URI`    | Users management service host address   |
+| `RENTALS_URI`  | Rentals management service host address |
+| `BIKES_URI`    | Bikes management service host address   |
+| `STATIONS_URI` | Stations service host address           |
+
+
+
+## Running the app
+The app can be run using npm or as a docker container
+
+1. **Using npm**
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start
+```
+
+2. **As a docker container**
+
+Build the container
+
+```bash
+  docker build -f Dockerfile -t  gateway .
+```
+
+Run the container
+
+```bash
+  docker run -p 3000:3000 --name gateway gateway  
+```
+
 
 
 

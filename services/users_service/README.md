@@ -108,3 +108,61 @@ Each user has the following properties:
 ```
 
 
+
+## Database
+This app requires a running MySQL database to store data (Windows Service, Docker Container,...). It requires a database with a table that has the following columns:
+
+| Name             | Type         |
+|:-----------------|:-------------|
+| `id `            | INT          |
+| `name `          | VARCHAR(45)  |
+| `surname `       | VARCHAR(45)  |
+| `email `         | VARCHAR(45)  |
+| `password `      | VARCHAR(255) |
+| `password_salt ` | VARCHAR(255) |
+| `bikes_rented `  | INT          |
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+| Variable     | description              |
+|:-------------|:-------------------------|
+| `MYSQL_HOST` | Database host IP address |
+| `MYSQL_USER` | Database Username        |
+| `MYSQL_PASS` | Database Password        |
+| `MYSQL_DB`   | Database name            |
+| `MYSQL_PORT` | Database access port     |
+
+
+## Running the app
+The app can be run using npm or as a docker container
+
+1. **Using npm**
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start
+```
+
+2. **As a docker container**
+
+Build the container
+
+```bash
+  docker build -f Dockerfile -t  users-service .
+```
+
+Run the container
+
+```bash
+  docker run -p 3001:3001 --name users-service users-service 
+```
+
