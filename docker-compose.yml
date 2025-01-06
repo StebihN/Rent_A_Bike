@@ -102,7 +102,7 @@ services:
     image: bikes-db:latest
     restart: always
     ports:
-      - '5455:5432'
+      - '5433:5432'
     environment:
       POSTGRES_DB: "bikes"
       POSTGRES_USER: "postgres"
