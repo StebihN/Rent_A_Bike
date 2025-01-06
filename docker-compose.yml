@@ -3,7 +3,7 @@ version: '3'
 services:
   bikes-service:
     container_name: bikes-service
-    image: bikes-service:latest
+    image: nikstebih/bikes-service:1.0
     depends_on:
       - bikes-db
     ports:
@@ -15,7 +15,7 @@ services:
 
   stations-service:
     container_name: stations-service
-    image: stations-service:latest
+    image: nikstebih/stations-service:1.0
     depends_on:
       - mongo-db
     ports:
@@ -27,7 +27,7 @@ services:
 
   rentals-service:
     container_name: rentals-service
-    image: rentals-service:latest
+    image: nikstebih/rentals-service:1.0
     depends_on:
       - mongo-db
     ports:
@@ -39,7 +39,7 @@ services:
 
   users-service:
     container_name: users-service
-    image: users-service:latest
+    image: nikstebih/users-service:1.0
     depends_on:
       - users-db
     ports:
@@ -55,7 +55,7 @@ services:
 
   gateway:
     container_name: gateway
-    image: gateway:latest
+    image: nikstebih/gateway:1.0
     depends_on:
       - bikes-service
       - rentals-service
@@ -73,7 +73,7 @@ services:
 
   users-db:
     container_name: users-db
-    image: users-db:latest
+    image: nikstebih/users-db:1.0
     restart: always
     environment:
       MYSQL_DATABASE: 'users'
@@ -99,7 +99,7 @@ services:
 
   bikes-db:
     container_name: bikes-db
-    image: bikes-db:latest
+    image: nikstebih/bikes-db:1.0
     restart: always
     ports:
       - '5433:5432'
@@ -114,7 +114,7 @@ services:
   
   host-front:
     container_name: 'host-front'
-    image: host-front:latest
+    image: nikstebih/host-front:1.0
     depends_on:
       - "users-front"
       - "stations-front"
@@ -132,7 +132,7 @@ services:
 
   users-front:
     container_name: 'users-front'
-    image: users-front:latest
+    image: nikstebih/users-front:1.0
     depends_on:
       - "gateway"
     ports:
@@ -146,7 +146,7 @@ services:
   
   stations-front:
     container_name: 'stations-front'
-    image: stations-front:latest
+    image: nikstebih/stations-front:1.0
     depends_on:
       - "gateway"
     ports:
@@ -160,7 +160,7 @@ services:
 
   bikes-front:
     container_name: 'bikes-front'
-    image: bikes-front:latest
+    image: nikstebih/bikes-front:1.0
     depends_on:
       - "gateway"
     ports:
