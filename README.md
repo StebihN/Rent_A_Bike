@@ -16,7 +16,7 @@ An app for a bike rental company. It provides functionalities for viewing, creat
 
 ## Motivation
 
-The motivation behind this project was to learn various technologies listed in the badges above and to leatn about microservices, microfrontends, gateways, automatic scaling and other concepts.
+The motivation behind this project was to learn various technologies listed in the badges above and to learn about microservices, microfrontends, gateways and other concepts.
 
 ## Running the app
 This app can be run by setting up each app seperatly or by running a docker compose file.
