@@ -9,6 +9,7 @@
 ![Webpack](https://img.shields.io/badge/Webpack-white?logo=webpack)
 ![Axios](https://img.shields.io/badge/Axios-black?logo=axios)
 
+[![Test and Package](https://github.com/StebihN/Rent_A_Bike/actions/workflows/main.yml/badge.svg)](https://github.com/StebihN/Rent_A_Bike/actions/workflows/main.yml)
 
 # Bike Rental Sytem
 An app for a bike rental company. It provides functionalities for viewing, creating, updating and deleting bikes, bike stations and users. users can view and rent bikes at stations. 
