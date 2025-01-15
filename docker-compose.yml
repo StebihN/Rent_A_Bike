@@ -5,19 +5,21 @@ services:
     container_name: bikes-service
     image: nikstebih/bikes-service:1.0
     depends_on:
-      - bikes-db
+      bikes-db:
+        condition: service_healthy
     ports:
       - "9000:9000"
     environment:
       PSQL_URI: "jdbc:postgresql://bikes-db:5432/bikes"
     networks:
-      - bikes  
+      - bikes
 
   stations-service:
     container_name: stations-service
     image: nikstebih/stations-service:1.0
     depends_on:
-      - mongo-db
+      mongo-db:
+        condition: service_healthy
     ports:
       - "8080:8080"
     environment:
@@ -29,7 +31,8 @@ services:
     container_name: rentals-service
     image: nikstebih/rentals-service:1.0
     depends_on:
-      - mongo-db
+      mongo-db:
+        condition: service_healthy
     ports:
       - "8081:8081"
     environment:
@@ -41,7 +44,8 @@ services:
     container_name: users-service
     image: nikstebih/users-service:1.0
     depends_on:
-      - users-db
+      users-db:
+        condition: service_healthy
     ports:
       - "3001:3001"
     environment:
@@ -78,6 +82,10 @@ services:
     environment:
       MYSQL_DATABASE: 'users'
       MYSQL_ROOT_PASSWORD: 'root'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      timeout: 5s
+      retries: 5
     ports:
       - '3307:3306'
     expose:
@@ -90,6 +98,10 @@ services:
   mongo-db:
     container_name: mongo-db
     image: mongo:7.0.16
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      timeout: 5s
+      retries: 5
     ports:
       - '27017:27017'
     networks:
@@ -107,19 +119,23 @@ services:
       POSTGRES_DB: "bikes"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "root"
+    healthcheck:
+      test: pg_isready -U postgres -d root
+      timeout: 5s
+      retries: 5
     networks:
       - bikes
     volumes:
-      - pgdata:/var/lib/postgresql/data   
-  
+      - pgdata:/var/lib/postgresql/data
+
   host-front:
     container_name: 'host-front'
     image: nikstebih/host-front:1.0
     depends_on:
+      - "gateway"
       - "users-front"
       - "stations-front"
       - "bikes-front"
-      - "gateway"
     ports:
       - "2000:80"
     environment:
@@ -143,7 +159,7 @@ services:
       GATEWAY_URI: "http://gateway:3000"
     networks:
       - bikes
-  
+
   stations-front:
     container_name: 'stations-front'
     image: nikstebih/stations-front:1.0
@@ -176,6 +192,7 @@ volumes:
   my-db:
   dbdata6:
   pgdata:
+
 
 networks:
   bikes:
