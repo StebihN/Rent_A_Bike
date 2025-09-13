@@ -7,6 +7,7 @@ import com.google.protobuf.Int32Value;
 import com.google.protobuf.StringValue;
 import io.grpc.Status;
 import io.grpc.StatusRuntimeException;
+import io.micrometer.core.instrument.MeterRegistry;
 import io.quarkus.grpc.GrpcService;
 import io.smallrye.common.annotation.Blocking;
 import jakarta.inject.Inject;
@@ -24,6 +25,9 @@ public class BikesGrpcService implements Bikes {
 
     @Inject
     BikeService bikeService;
+
+    @Inject
+    MeterRegistry registry;
 
 
     @Override
